@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:paddingLeft="10dp"
+    android:id="@+id/background_item_rss_pager"
+    android:background="#33111111"
+    android:weightSum="6">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageView_title_icon"
+            android:layout_width="80dp"
+            android:layout_height="70dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/textView_title_news"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView_title_icon"
+            android:layout_weight="2"
+            android:textColor="#111111"
+            android:textSize="15sp" />
+
+        <TextView
+            android:textColor="#8C111111"
+            android:id="@+id/textViewPubdate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/imageView_mark_rss_important"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|left"
+            android:src="@drawable/star_on" />
+    </LinearLayout>
+
+</LinearLayout>
