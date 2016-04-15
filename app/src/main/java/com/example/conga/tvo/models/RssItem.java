@@ -12,7 +12,7 @@ public class RssItem {
     private String link;
     private String pubDate;
     private String linkTag;
-
+   
     public String getLinkTag() {
         return linkTag;
     }
