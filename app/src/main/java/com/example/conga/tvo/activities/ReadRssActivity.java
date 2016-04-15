@@ -3,19 +3,27 @@ package com.example.conga.tvo.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.conga.tvo.R;
+import com.example.conga.tvo.htmltextview.HtmlTextView;
 import com.example.conga.tvo.models.RssItem;
 import com.example.conga.tvo.models.Values;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 
 /**
  * Created by ConGa on 12/04/2016.
@@ -25,35 +33,40 @@ public class ReadRssActivity extends AppCompatActivity {
     private WebView webView;
     private ProgressDialog mProgressDialog;
     private String link;
+    private String linkTag;
     public static Activity mActivity;
     public static Context mContext;
     final Activity context= this;
+    private Button button;
+    HtmlTextView text;
+    String result;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.readrssitemlayout);
-     //  this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-//        mProgressDialog = ProgressDialog.show(this, "" ,"loading");
+        setContentView(R.layout.textviewhtml);
         int key = getIntent().getExtras().getInt(Values.key);
         int position = getIntent().getExtras().getInt(Values.position);
         RssItem item = Values.MAP.get(key).get(position);
+        text = (HtmlTextView) findViewById(R.id.html_text);
+       // text.setRemoveFromHtmlSpace(true);
+
         setTitle(item.getTitle());
-    //    link = item.getLink();
-        link =item.getLinkTag();
-        Toast.makeText(getApplicationContext(), ""+link, Toast.LENGTH_SHORT).show();
-        runOnUiThread(new Runnable() {
+      //  mFloatingActionButton = (FloatingActionButton) findViewById(R.id.overview_floating_action_button);
+        button = (Button) findViewById(R.id.btn_ok);
+        link = item.getLink();
+        linkTag =item.getLinkTag();
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                new ReadJsoupWebPage().execute();
+            public void onClick(View view) {
+                new SaveContentRssAsyncTask().execute();
             }
         });
-
-//        mContext = getApplicationContext();
-//        mActivity = ReadRssActivity.this;
-//        webView = (WebView) findViewById(R.id.webView);
+        mContext = getApplicationContext();
+        mActivity = ReadRssActivity.this;
+        webView = (WebView) findViewById(R.id.webView);
 //        webView.getSettings().setJavaScriptEnabled(true);
 //        webView.getSettings().setSupportZoom(true);
 //        webView.getSettings().setLoadWithOverviewMode(true);
@@ -65,24 +78,29 @@ public class ReadRssActivity extends AppCompatActivity {
 //        webView.getSettings().setSupportMultipleWindows(true);
 //        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 //        webView.setWebViewClient(new MyWebViewClient());
-//        webView.setWebChromeClient(new MyWebChromeClient());
+//        webView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/_BuildID_) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36");
 //
-////        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-////            webView.getSettings().setDisplayZoomControls(false);
-////        }
-////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-////            WebView.setWebContentsDebuggingEnabled(true);
-////        }
-//
-//
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+//            webView.getSettings().setDisplayZoomControls(false);
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WebView.setWebContentsDebuggingEnabled(true);
+//        }
+//      runOnUiThread(new Runnable() {
+//          @Override
+//          public void run() {
+//              webView.loadUrl(link);
+//          }
+//      });
+
 //        webView.post(new Runnable() {
 //            @Override
 //            public void run() {
-//                webView.loadUrl(link);
+//
 //            }
 //        });
-//
-//    }
+
+    }
 //
 //    class MyTask extends AsyncTask<Void, Void, Void> {
 //        @Override
@@ -99,31 +117,47 @@ public class ReadRssActivity extends AppCompatActivity {
 //
 //    }
 //
-//    class MyWebViewClient extends WebViewClient {
-//        @Override
-//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//
-//            mProgressDialog = ProgressDialog.show(ReadRssActivity.this, "" ,"loading");
-//            super.onPageStarted(view, url, favicon);
-//        }
-//
-//        @Override
-//        public void onPageFinished(WebView view, String url) {
-//            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//                mProgressDialog.dismiss();
+    class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+            mProgressDialog = ProgressDialog.show(ReadRssActivity.this, "" ,"loading");
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
+            Log.d("finish", url);
+            super.onPageFinished(view, url);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // TODO Auto-generated method stub
+            view.loadUrl(url);
+            return true;
+        }
+private static final String APP_SCHEME = "example-app:";
+
+//    @Override
+//    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//        if (url.startsWith(APP_SCHEME)) {
+//            String urlData=null;
+//            try {
+//                urlData = URLDecoder.decode(url.substring(APP_SCHEME.length()), "UTF-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
 //            }
-//            Log.d("finish", url);
-//            super.onPageFinished(view, url);
-//        }
-//
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            // TODO Auto-generated method stub
-//             view.loadUrl(url);
+//            respondToData(urlData);
 //            return true;
 //        }
-//
-//
+//        return false;
+//    }
+
+
 //    }
 //
 //    private class MyWebChromeClient extends WebChromeClient {
@@ -140,7 +174,7 @@ public class ReadRssActivity extends AppCompatActivity {
 //        }
 //
 //        @Override
-//        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+//        public boolean onJsAlert(WebView view, String url, String mes"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623sage, JsResult result) {
 //
 //            Log.d("finish", url);
 //               return super.onJsAlert(view, url, message, result);
@@ -148,18 +182,53 @@ public class ReadRssActivity extends AppCompatActivity {
 //        }
  }
 
-    public class ReadJsoupWebPage  extends AsyncTask<Void, Void, Void>{
+    //
+    private class SaveContentRssAsyncTask  extends AsyncTask<Void, Void, Void>{
+
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Document  document = Jsoup.connect(link).get();
-                Toast.makeText(getApplicationContext(), "" +document.title(), Toast.LENGTH_SHORT).show();
-             //   Toast.makeText(getApplicationContext(), ""+document.title(), Toast.LENGTH_SHORT).show();
-                Log.d("hahha", document.title());
-            }catch (Exception e){
+                if(linkTag.contains("vnexpress.net")) {
+                    Document document = Jsoup.connect(linkTag).
+                            userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36").
+                            get();
+                    Elements elements = document.select("div [class= fck_detail width_common]");
+                    result = elements.toString();
+                }
+                if(linkTag.contains("www.24h.com")){
+                    Document document = Jsoup.connect(linkTag).
+                            userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36").get();
+                    Elements elements = document.select("div.text-conent");
+                    result = elements.toString();
+                }
+                if(linkTag.contains("dantri.com.vn")){
+                    Document document = Jsoup.connect(linkTag).
+                            userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36").get();
+                    Elements elements = document.select("div.VCSortableInPreviewMode");
+                    result = elements.toString();
+                }
+                if(linkTag.contains("vietnamnet.vn")){
+
+                    Document document = Jsoup.connect(linkTag).
+                            userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36").get();
+                    Elements elements = document.select("div.ArticleDetail");
+                    result = elements.toString();
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+           // text.setHtmlFromString(result, new com.example.conga.tvo.htmltextview.HtmlTextView.RemoteImageGetter(null));
+            text.setHtmlFromString(result, new HtmlTextView.RemoteImageGetter());
+            Toast.makeText(getApplicationContext(), ""+linkTag, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), ""+text, Toast.LENGTH_SHORT).show();
+            Log.d("error", text+"");
         }
     }
 }
