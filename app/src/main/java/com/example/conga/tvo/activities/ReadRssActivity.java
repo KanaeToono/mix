@@ -4,12 +4,17 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
@@ -17,6 +22,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.conga.tvo.R;
@@ -47,6 +53,12 @@ public class ReadRssActivity extends AppCompatActivity {
     private Button button;
     HtmlTextView text;
     String result;
+    private View mCustomView;
+    private int mOriginalSystemUiVisibility;
+    private int mOriginalOrientation;
+    private WebChromeClient.CustomViewCallback mCustomViewCallback;
+    protected FrameLayout mFullscreenContainer;
+    private Handler mHandler;
 
 
     @Override
@@ -102,6 +114,71 @@ public class ReadRssActivity extends AppCompatActivity {
             }
         });
         webView.setWebChromeClient(new WebChromeClient() {
+
+            //
+//            @Override
+//            public Bitmap getDefaultVideoPoster() {
+//
+//                return BitmapFactory.decodeResource(getApplicationContext().getResources(),
+//                        R.drawable.video_poster);
+//            }
+
+            @Override
+            public void onShowCustomView(View view,
+                                         WebChromeClient.CustomViewCallback callback) {
+                // if a view already exists then immediately terminate the new one
+                if (mCustomView != null) {
+                    onHideCustomView();
+                    return;
+                }
+
+                // 1. Stash the current state
+                mCustomView = view;
+                mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
+                mOriginalOrientation = getRequestedOrientation();
+
+                // 2. Stash the custom view callback
+                mCustomViewCallback = callback;
+
+                // 3. Add the custom view to the view hierarchy
+                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
+                decor.addView(mCustomView, new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+                // 4. Change the state of the window
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_IMMERSIVE);
+           setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }
+
+            @Override
+            public void onHideCustomView() {
+                // 1. Remove the custom view
+                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
+                decor.removeView(mCustomView);
+                mCustomView = null;
+
+                // 2. Restore the state to it's original form
+                getWindow().getDecorView()
+                        .setSystemUiVisibility(mOriginalSystemUiVisibility);
+                setRequestedOrientation(mOriginalOrientation);
+
+                // 3. Call the custom view callback
+                mCustomViewCallback.onCustomViewHidden();
+                mCustomViewCallback = null;
+
+            }
+
+
+
+        //
 //permission request API in WebChromeClient:
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
@@ -125,8 +202,10 @@ public class ReadRssActivity extends AppCompatActivity {
     }
 
     private void setUpWebViewDefaults(WebView webView) {
+        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         WebSettings settings = webView.getSettings();
-
+        webView.getSettings().setSupportZoom(true);
+        settings.setPluginState(WebSettings.PluginState.ON);
         // Enable Javascript
         settings.setJavaScriptEnabled(true);
 
@@ -268,4 +347,15 @@ public class ReadRssActivity extends AppCompatActivity {
                 Log.d("error", text + "");
             }
         }
+
+    //xem lại trang đã xem trước đó
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Check if the key event was the Back button and if there's history
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+           webView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     }
