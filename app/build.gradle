@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.conga.tvo"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,4 +36,6 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.jpardogo.materialtabstrip:library:1.1.0'
     compile files('libs/jsoup-1.8.3.jar')
+    compile 'com.github.clans:fab:1.6.3'
+
 }
