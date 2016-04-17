@@ -1,4 +1,4 @@
-package com.example.conga.tvo.activities;
+package com.example.conga.tvo.fragments;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,9 +10,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -41,15 +42,14 @@ import static android.os.Build.VERSION_CODES;
 /**
  * Created by ConGa on 12/04/2016.
  */
-public class ReadRssActivity extends AppCompatActivity {
-    private static String TAG = ReadRssActivity.class.getSimpleName();
+public class ReadRssFragmnet extends Fragment {
+    private static String TAG = ReadRssFragmnet.class.getSimpleName();
     private WebView webView;
     private ProgressDialog mProgressDialog;
     private String link;
     private String linkTag;
     public static Activity mActivity;
     public static Context mContext;
-    final Activity context = this;
     private Button button;
     HtmlTextView text;
     String result;
@@ -59,20 +59,28 @@ public class ReadRssActivity extends AppCompatActivity {
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
     protected FrameLayout mFullscreenContainer;
     private Handler mHandler;
+    private  int mKey;
+    private int mPosition;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.readrssitemlayout);
-        int key = getIntent().getExtras().getInt(Values.key);
-        int position = getIntent().getExtras().getInt(Values.position);
-        RssItem item = Values.MAP.get(key).get(position);
-        text = (HtmlTextView) findViewById(R.id.html_text);
-        // text.setRemoveFromHtmlSpace(true);
+        Log.d(TAG, "on ctreate Read webpage");
 
-        setTitle(item.getTitle());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.readrssitemlayout, container, false);
+        mKey = getArguments().getInt(Values.key);
+        mPosition = getArguments().getInt(Values.position);
+        RssItem item = Values.MAP.get(mKey).get(mPosition);
+        text = (HtmlTextView) view.findViewById(R.id.html_text);
+        // text.setRemoveFromHtmlSpace(true);
+        getActivity().setTitle(item.getTitle());
         //  mFloatingActionButton = (FloatingActionButton) findViewById(R.id.overview_floating_action_button);
         // button = (Button) findViewById(R.id.btn_ok);
         link = item.getLink();
@@ -83,7 +91,7 @@ public class ReadRssActivity extends AppCompatActivity {
 //                new SaveContentRssAsyncTask().execute();
 //            }
 //        });
-        webView = (WebView) findViewById(R.id.webView);
+        webView = (WebView) view.findViewById(R.id.webView);
         setUpWebViewDefaults(webView);
 //        mContext = getApplicationContext();
 //        mActivity = ReadRssActivity.this;
@@ -107,7 +115,7 @@ public class ReadRssActivity extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            WebView.setWebContentsDebuggingEnabled(true);
 //        }
-        runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 webView.loadUrl(link);
@@ -134,41 +142,41 @@ public class ReadRssActivity extends AppCompatActivity {
 
                 // 1. Stash the current state
                 mCustomView = view;
-                mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
-                mOriginalOrientation = getRequestedOrientation();
+                mOriginalSystemUiVisibility = getActivity().getWindow().getDecorView().getSystemUiVisibility();
+                mOriginalOrientation = getActivity().getRequestedOrientation();
 
                 // 2. Stash the custom view callback
                 mCustomViewCallback = callback;
 
                 // 3. Add the custom view to the view hierarchy
-                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
+                FrameLayout decor = (FrameLayout)getActivity().getWindow().getDecorView();
                 decor.addView(mCustomView, new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
 
 
                 // 4. Change the state of the window
-                getWindow().getDecorView().setSystemUiVisibility(
+                getActivity().getWindow().getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
                                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                                 View.SYSTEM_UI_FLAG_FULLSCREEN |
                                 View.SYSTEM_UI_FLAG_IMMERSIVE);
-           setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             }
 
             @Override
             public void onHideCustomView() {
                 // 1. Remove the custom view
-                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
+                FrameLayout decor = (FrameLayout)getActivity().getWindow().getDecorView();
                 decor.removeView(mCustomView);
                 mCustomView = null;
 
                 // 2. Restore the state to it's original form
-                getWindow().getDecorView()
+                getActivity().getWindow().getDecorView()
                         .setSystemUiVisibility(mOriginalSystemUiVisibility);
-                setRequestedOrientation(mOriginalOrientation);
+                getActivity().setRequestedOrientation(mOriginalOrientation);
 
                 // 3. Call the custom view callback
                 mCustomViewCallback.onCustomViewHidden();
@@ -178,12 +186,12 @@ public class ReadRssActivity extends AppCompatActivity {
 
 
 
-        //
+            //
 //permission request API in WebChromeClient:
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 Log.d(TAG, "onPermissionRequest");
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @TargetApi(VERSION_CODES.KITKAT)
                     @Override
                     public void run() {
@@ -199,6 +207,7 @@ public class ReadRssActivity extends AppCompatActivity {
         });
 
 
+        return view;
     }
 
     private void setUpWebViewDefaults(WebView webView) {
@@ -235,7 +244,7 @@ public class ReadRssActivity extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-                mProgressDialog = ProgressDialog.show(ReadRssActivity.this, "", "loading");
+                mProgressDialog = ProgressDialog.show(getActivity(), "", "loading");
                 super.onPageStarted(view, url, favicon);
             }
 
@@ -342,20 +351,20 @@ public class ReadRssActivity extends AppCompatActivity {
 
                 // text.setHtmlFromString(result, new com.example.conga.tvo.htmltextview.HtmlTextView.RemoteImageGetter(null));
                 text.setHtmlFromString(result, new HtmlTextView.RemoteImageGetter());
-                Toast.makeText(getApplicationContext(), "" + linkTag, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "" + text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "" + linkTag, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "" + text, Toast.LENGTH_SHORT).show();
                 Log.d("error", text + "");
             }
         }
 
     //xem lại trang đã xem trước đó
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Check if the key event was the Back button and if there's history
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-           webView.goBack();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        // Check if the key event was the Back button and if there's history
+//        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+//           webView.goBack();
+//            return true;
+//        }
+//        return super.getActivity().onKeyDown(keyCode, event);
+//    }
     }

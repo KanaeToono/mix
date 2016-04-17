@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#66FFF0B2"
     android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,13 +12,11 @@
         style="@style/MyToolbarStyle"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-   <ListView
-       android:layout_margin="10dp"
-       android:background="#66FFF0B2"
-       android:dividerHeight="10sp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:divider="@android:color/transparent"
-       android:id="@+id/listrsslinks">
-       </ListView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_links"
+        android:background="@drawable/backgroundrecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </LinearLayout>

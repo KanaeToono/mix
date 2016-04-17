@@ -1,4 +1,4 @@
-package com.example.conga.tvo.adapters;
+package com.example.conga.tvo.adapters.recycleradapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.conga.tvo.R;
-import com.example.conga.tvo.activities.MainActivity;
 
 /**
  * Created by ConGa on 11/04/2016.
@@ -21,7 +20,7 @@ public class CustomAdapter  extends BaseAdapter {
     Context context;
     int [] imageId;
     private static LayoutInflater inflater=null;
-    public CustomAdapter(MainActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
+    public CustomAdapter(Context mainActivity, String[] prgmNameList, int[] prgmImages) {
         // TODO Auto-generated constructor stub
         result=prgmNameList;
         context=mainActivity;

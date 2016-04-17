@@ -1,4 +1,4 @@
-package com.example.conga.tvo.adapters;
+package com.example.conga.tvo.adapters.recycleradapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.conga.tvo.R;
+import com.example.conga.tvo.controllers.OnItemClickListener;
 
 /**
  * Created by ConGa on 12/04/2016.
@@ -20,12 +21,13 @@ public class CategoryAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private int[] imageBackground;
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback;
 
-
-    public CategoryAdapter(Context context, int [] imageBackground , String[] dataListPayers) {
+    public CategoryAdapter(Context context, int [] imageBackground , String[] dataListPayers,OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.mListPayers = dataListPayers;
         this.imageBackground =imageBackground;
         this.mContext = context;
+        this.onItemClickCallback =onItemClickCallback;
     }
 
     @Override
