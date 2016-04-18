@@ -1,4 +1,4 @@
-package com.example.conga.tvo.fragments;
+package com.example.conga.tvo.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,10 +10,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -29,7 +27,7 @@ import android.widget.Toast;
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.htmltextview.HtmlTextView;
 import com.example.conga.tvo.models.RssItem;
-import com.example.conga.tvo.models.Values;
+import com.example.conga.tvo.variables.Values;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,8 +40,8 @@ import static android.os.Build.VERSION_CODES;
 /**
  * Created by ConGa on 12/04/2016.
  */
-public class ReadRssFragmnet extends Fragment {
-    private static String TAG = ReadRssFragmnet.class.getSimpleName();
+public class ReadRssActivity extends AppCompatActivity {
+    private static String TAG = ReadRssActivity.class.getSimpleName();
     private WebView webView;
     private ProgressDialog mProgressDialog;
     private String link;
@@ -68,19 +66,14 @@ public class ReadRssFragmnet extends Fragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         Log.d(TAG, "on ctreate Read webpage");
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.readrssitemlayout, container, false);
-        mKey = getArguments().getInt(Values.key);
-        mPosition = getArguments().getInt(Values.position);
+        setContentView(R.layout.readrssitemlayout);
+       // nhan data
+        mKey = getIntent().getExtras().getInt(Values.key);
+        mPosition = getIntent().getExtras().getInt(Values.position);
         RssItem item = Values.MAP.get(mKey).get(mPosition);
-        text = (HtmlTextView) view.findViewById(R.id.html_text);
+        text = (HtmlTextView) findViewById(R.id.html_text);
         // text.setRemoveFromHtmlSpace(true);
-        getActivity().setTitle(item.getTitle());
+        setTitle(item.getTitle());
         //  mFloatingActionButton = (FloatingActionButton) findViewById(R.id.overview_floating_action_button);
         // button = (Button) findViewById(R.id.btn_ok);
         link = item.getLink();
@@ -91,7 +84,7 @@ public class ReadRssFragmnet extends Fragment {
 //                new SaveContentRssAsyncTask().execute();
 //            }
 //        });
-        webView = (WebView) view.findViewById(R.id.webView);
+        webView = (WebView) findViewById(R.id.webView);
         setUpWebViewDefaults(webView);
 //        mContext = getApplicationContext();
 //        mActivity = ReadRssActivity.this;
@@ -115,7 +108,7 @@ public class ReadRssFragmnet extends Fragment {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            WebView.setWebContentsDebuggingEnabled(true);
 //        }
-        getActivity().runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 webView.loadUrl(link);
@@ -142,41 +135,41 @@ public class ReadRssFragmnet extends Fragment {
 
                 // 1. Stash the current state
                 mCustomView = view;
-                mOriginalSystemUiVisibility = getActivity().getWindow().getDecorView().getSystemUiVisibility();
-                mOriginalOrientation = getActivity().getRequestedOrientation();
+                mOriginalSystemUiVisibility =getWindow().getDecorView().getSystemUiVisibility();
+                mOriginalOrientation = getRequestedOrientation();
 
                 // 2. Stash the custom view callback
                 mCustomViewCallback = callback;
 
                 // 3. Add the custom view to the view hierarchy
-                FrameLayout decor = (FrameLayout)getActivity().getWindow().getDecorView();
+                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
                 decor.addView(mCustomView, new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
 
 
                 // 4. Change the state of the window
-                getActivity().getWindow().getDecorView().setSystemUiVisibility(
+               getWindow().getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
                                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                                 View.SYSTEM_UI_FLAG_FULLSCREEN |
                                 View.SYSTEM_UI_FLAG_IMMERSIVE);
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             }
 
             @Override
             public void onHideCustomView() {
                 // 1. Remove the custom view
-                FrameLayout decor = (FrameLayout)getActivity().getWindow().getDecorView();
+                FrameLayout decor = (FrameLayout)getWindow().getDecorView();
                 decor.removeView(mCustomView);
                 mCustomView = null;
 
                 // 2. Restore the state to it's original form
-                getActivity().getWindow().getDecorView()
+                getWindow().getDecorView()
                         .setSystemUiVisibility(mOriginalSystemUiVisibility);
-                getActivity().setRequestedOrientation(mOriginalOrientation);
+                setRequestedOrientation(mOriginalOrientation);
 
                 // 3. Call the custom view callback
                 mCustomViewCallback.onCustomViewHidden();
@@ -191,7 +184,7 @@ public class ReadRssFragmnet extends Fragment {
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 Log.d(TAG, "onPermissionRequest");
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @TargetApi(VERSION_CODES.KITKAT)
                     @Override
                     public void run() {
@@ -207,8 +200,10 @@ public class ReadRssFragmnet extends Fragment {
         });
 
 
-        return view;
+
     }
+
+
 
     private void setUpWebViewDefaults(WebView webView) {
         webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
@@ -244,7 +239,7 @@ public class ReadRssFragmnet extends Fragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-                mProgressDialog = ProgressDialog.show(getActivity(), "", "loading");
+                mProgressDialog = ProgressDialog.show(getApplicationContext(), "", "loading");
                 super.onPageStarted(view, url, favicon);
             }
 
@@ -367,4 +362,40 @@ public class ReadRssFragmnet extends Fragment {
 //        }
 //        return super.getActivity().onKeyDown(keyCode, event);
 //    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "START READRSSACTIVITY");
+
     }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "PAUSE READRSSACTIVITY");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "STOP READRSSACTIVITY");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "RESTART READRSSACTIVITY");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "DESTROY READRSSACTIVITY");
+
+    }
+// HANDLE PHẦN BACK LẠI , TRỞ VỀ TRANG BÁO TRƯỚC ĐÓ , KHÔNG PHẢI LÀ THOÁT LUÔN
+    // HANDLE LẠI PHẦN VIDEO , CÓ VẤN ĐỀ Ở ĐÂY : NHẤN BACK , XOAY POTRAIT LÀ TRỞ VỀ TRẠNG THÁI BAN ĐẦU ,
+    // HANDLE PHẦN CHECK MẠNG Ở ĐÂY , ĐANG ĐỌC MÀ MẤT MẠNG
+
+}

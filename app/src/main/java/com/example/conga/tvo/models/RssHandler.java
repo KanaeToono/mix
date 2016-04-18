@@ -13,6 +13,7 @@ import java.util.List;
  * Created by ConGa on 12/04/2016.
  */
 public class RssHandler extends DefaultHandler{
+    private static String TAG = RssHandler.class.getSimpleName();
     private RssItem item;
     private List<RssItem> items = new ArrayList<RssItem>();
     private StringBuffer sBuffer = new StringBuffer();
@@ -22,6 +23,7 @@ public class RssHandler extends DefaultHandler{
     public static String DESCRIPTION = "description";
     public static String LINK = "link";
     public static String PUBDATE = "pubDate";
+
 
     @Override
     public void characters(char[] ch, int start, int length)
@@ -54,7 +56,7 @@ public class RssHandler extends DefaultHandler{
             Log.d("Title", item.getTitle());
             Log.d("Description", item.getDescription());
             Log.d("Link", item.getLink());
-            Log.d("Date", item.getPubDate());
+             Log.d("Date", item.getPubDate());
             Log.d("Image", item.getImage());
            Log.d("Link Tag" , item.getLinkTag());
         } else if (started) {
@@ -65,7 +67,9 @@ public class RssHandler extends DefaultHandler{
             } else if (localName.equalsIgnoreCase(LINK)) {
                 item.setLink(sBuffer.toString().trim());
             } else if (localName.equalsIgnoreCase(PUBDATE)) {
-                item.setPubDate(sBuffer.toString().trim());
+
+                    item.setPubDate(sBuffer.toString().trim());
+
             }
             sBuffer = new StringBuffer();
         }

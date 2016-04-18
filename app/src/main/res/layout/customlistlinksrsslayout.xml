@@ -6,10 +6,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    android:layout_margin="5dp"
     android:id="@+id/background_item_rss_pager"
     android:background="#33111111"
     android:weightSum="6">
     <FrameLayout
+        android:paddingLeft="4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">

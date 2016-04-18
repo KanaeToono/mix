@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class ListLinksViewHolder extends RecyclerView.ViewHolder {
     public Context mContext;
     public final View mView;
     public ProgressBar progressBar ;
+    public LinearLayout mLinearLayout;
     public ListLinksViewHolder(View view) {
         super(view);
         mView = view;
@@ -27,6 +29,7 @@ public class ListLinksViewHolder extends RecyclerView.ViewHolder {
        textViewPubDate = (TextView) view.findViewById(R.id.textViewPubdate);
        textViewTitleRss = (TextView) view.findViewById(R.id.textView_title_news);
        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.background_item_rss_pager);
 
     }
 }

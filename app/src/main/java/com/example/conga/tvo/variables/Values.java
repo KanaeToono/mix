@@ -1,6 +1,7 @@
-package com.example.conga.tvo.models;
+package com.example.conga.tvo.variables;
 
 import com.example.conga.tvo.R;
+import com.example.conga.tvo.models.RssItem;
 
 import java.util.HashMap;
 import java.util.List;

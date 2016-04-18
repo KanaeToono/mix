@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activities.CategoryPayersActivity"/>
+        <activity android:name=".activities.ListLinksRssItemActivity"/>
+        <activity android:name=".activities.ReadRssActivity"/>
     </application>
 
 </manifest>

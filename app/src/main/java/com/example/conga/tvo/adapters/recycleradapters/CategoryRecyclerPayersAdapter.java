@@ -20,11 +20,14 @@ public class CategoryRecyclerPayersAdapter extends RecyclerView.Adapter<Category
     private Context mContext;
     private int[] imageBackground;
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
-    public CategoryRecyclerPayersAdapter(Context context, int[] imageBackground, String[] dataListPayers, OnItemClickListener.OnItemClickCallback onItemClickCallback){
+    public CategoryRecyclerPayersAdapter(Context context, int[] imageBackground,
+                                         String[] dataListPayers,
+                                         OnItemClickListener.OnItemClickCallback onItemClickCallback){
         this.mListPayers = dataListPayers;
         this.imageBackground =imageBackground;
         this.mContext = context;
         this.onItemClickCallback =onItemClickCallback;
+        this.notifyDataSetChanged();
     }
 
 
