@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.ListRssItemAdapter;
+import com.example.conga.tvo.adapters.recycleradapters.ListRssItemVietNamNetAdapter;
 import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.models.RssItem;
+import com.example.conga.tvo.models.RssItemVietNamNet;
 import com.example.conga.tvo.variables.Values;
 import com.example.conga.tvo.utils.NetworkUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,6 +38,7 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
     private int mCategory;
     private int mKey;
     private ListRssItemAdapter mListRssItemAdapter;
+    private ListRssItemVietNamNetAdapter mListRssItemVietNamNetAdapter;
     private NetworkUtils mNetworkUtils;
     private RecyclerView mRecyclerView;
     public static final String MyPREFERENCES = "StatusLayoutItem" ;
@@ -88,6 +91,7 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
         mToolbar.setTitle(Values.PAYERS[mPayer] + " - "
                 + Values.CATEGORIES[mPayer][mCategory]);
         List<RssItem> items = Values.MAP.get(mKey);
+        List<RssItemVietNamNet> itemsVietNamNet = Values.MAP_VIET_NAM_NET.get(mKey);
         Log.d(TAG, items + "");
         // recycler view show items
         mRecyclerView = (RecyclerView) findViewById(R.id.list_links);
@@ -95,8 +99,16 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         // set adapter
-        mListRssItemAdapter = new ListRssItemAdapter(this, items, onItemClickCallback);
-        mRecyclerView.setAdapter(mListRssItemAdapter);
+        if(mPayer == 3) {
+            mListRssItemVietNamNetAdapter = new ListRssItemVietNamNetAdapter(this, itemsVietNamNet, onItemClickCallback);
+            mRecyclerView.setAdapter(mListRssItemVietNamNetAdapter);
+        }
+        else {
+            mListRssItemAdapter = new ListRssItemAdapter(this, items, onItemClickCallback);
+            mRecyclerView.setAdapter(mListRssItemAdapter);
+        }
+
+
         mNetworkUtils = new NetworkUtils(this);
 
     }
