@@ -11,13 +11,12 @@ import java.util.List;
  */
 public class Values {
 
-    public static String[] PAYERS = {"VN EXPRESS", "24H.COM.VN", "DÂN TRÍ", "VIETNAMNET", "OFFLINE", "YÊU THÍCH"
+    public static String[] PAYERS = {"VN EXPRESS", "24H.COM.VN", "DÂN TRÍ", "VIETNAMNET"
     };
 
     public static int[] ICON_PAYER =
             {R.drawable.vnexpress, R.drawable.haibongio,
-                    R.drawable.dantri, R.drawable.vnn,
-                    R.drawable.offline, R.drawable.favorites
+                    R.drawable.dantri, R.drawable.vnn
             };
     //key to handle getextras();
     public static final String paper = "paper";

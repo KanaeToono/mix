@@ -1,5 +1,6 @@
 package com.example.conga.tvo.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,7 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "StatusLayoutItem" ;
     public static final String STATUS_KEY = "statusKry";
     public SharedPreferences sharedpreferences;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

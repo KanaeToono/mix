@@ -6,4 +6,15 @@
     <string name="name_app">Home</string>
     <string name="textView_main_activity">Articles</string>
     <string name="message">No connection , please check your network</string>
+    <string name="loading_video">loading...</string>
+    <string name="articles">Articles</string>
+    <string name="favorites">favorites</string>
+    <string name="offline">offline</string>
+    <string name="settings">settings</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="yes">Yes</string>
+    <string name="question">question</string>
+    <string name="messageCon">Are you sure delete this items?</string>
+    <string name="no">No</string>
 </resources>

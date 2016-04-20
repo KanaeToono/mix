@@ -1,28 +1,44 @@
 package com.example.conga.tvo.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 /**
  * Created by ConGa on 15/04/2016.
  */
-public class ContentRss {
+public class ContentRss implements Parcelable {
     private static String TAG = ContentRss.class.getSimpleName();
     public int id_content;
     public String title;
-  //  public String image;
+     public String image;
     public String content;
+
+    public ContentRss(String title, String content, String image) {
+        this.image = image;
+        this.title = title;
+        this.content = content;
+    }
+
+    public ContentRss() {
+
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public ContentRss(int id_content, String title, String content) {
         this.id_content = id_content;
         this.title = title;
         this.content = content;
+        Log.d(TAG, "CREATE CONTENT WEBPAGE");
     }
 
-    public static String getTAG() {
-        return TAG;
-    }
-
-    public static void setTAG(String TAG) {
-        ContentRss.TAG = TAG;
-    }
 
     public int getId_content() {
         return id_content;
@@ -55,5 +71,39 @@ public class ContentRss {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';
+    }
+
+    public static final Parcelable.Creator<ContentRss> CREATOR = new Creator<ContentRss>() {
+        public ContentRss createFromParcel(Parcel source) {
+            ContentRss mContentRss = new ContentRss();
+            mContentRss.id_content= source.readInt();
+            mContentRss.title = source.readString();
+
+            mContentRss.content = source.readString();
+
+            mContentRss.image = source.readString();
+
+            return mContentRss;
+        }
+
+        public ContentRss[] newArray(int size) {
+            return new ContentRss[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(id_content);
+        parcel.writeString(title);
+
+        parcel.writeString(content);
+        parcel.writeString(image);
+
     }
 }
