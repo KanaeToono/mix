@@ -17,4 +17,5 @@
     <string name="question">question</string>
     <string name="messageCon">Are you sure delete this items?</string>
     <string name="no">No</string>
+    <string name="list_news_offline">News</string>
 </resources>
