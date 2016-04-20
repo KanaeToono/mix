@@ -29,7 +29,9 @@ import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.CategoryRecyclerPayersAdapter;
 import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.models.RssItem;
+import com.example.conga.tvo.models.RssItemVietNamNet;
 import com.example.conga.tvo.models.RssParser;
+import com.example.conga.tvo.models.RssParserVietNamNet;
 import com.example.conga.tvo.utils.NetworkUtils;
 import com.example.conga.tvo.variables.Values;
 
@@ -174,19 +176,21 @@ public class CategoryPayersActivity extends AppCompatActivity {
         public void onItemClicked(View view, int position) {
             Log.d(TAG, "CREATE LISTITEM AGAIN");
             if (mNetworkUtils.isConnectingToInternet()) {
-                int key = 1000 * mPayer + position;
-                if (Values.MAP.containsKey(key)) {
-                    Intent intent = new Intent(CategoryPayersActivity.this, ListLinksRssItemActivity.class);
-                    intent.putExtra(Values.paper, mPayer);
-                    intent.putExtra(Values.category, position);
-                    intent.putExtra(Values.key, key);
-                    startActivity(intent);
-                } else {
-                    mProgressDialog = ProgressDialog.show(CategoryPayersActivity.this, "", "Loading...");
-                    new RssTask().execute(position);
-                }
 
-            } else {
+                    int key = 1000 * mPayer + position;
+                    if (Values.MAP.containsKey(key)) {
+                        Intent intent = new Intent(CategoryPayersActivity.this, ListLinksRssItemActivity.class);
+                        intent.putExtra(Values.paper, mPayer);
+                        intent.putExtra(Values.category, position);
+                        intent.putExtra(Values.key, key);
+                        startActivity(intent);
+                    } else {
+                        mProgressDialog = ProgressDialog.show(CategoryPayersActivity.this, "", "Loading...");
+                        new RssTask().execute(position);
+                    }
+
+
+            }else {
                 //xuat ra message neu khong co mang
                 Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT).show();
             }
@@ -211,10 +215,19 @@ public class CategoryPayersActivity extends AppCompatActivity {
         protected Void doInBackground(Integer... params) {
             position = params[0];
             key = 1000 * mPayer + position;
-            RssParser rssParser = new RssParser();
-            List<RssItem> items = rssParser
-                    .parser(Values.LINKS[mPayer][position]);
-            Values.MAP.put(key, items);
+            if (Values.PAYERS[mPayer].equalsIgnoreCase("VIETNAMNET")){
+                RssParserVietNamNet rssParserVietNamNet
+                        = new RssParserVietNamNet();
+                List<RssItemVietNamNet> vietNamNetList = rssParserVietNamNet.parser(Values.LINKS[mPayer][position]);
+                Values.MAP_VIET_NAM_NET.put(key, vietNamNetList);
+            }
+            else {
+                RssParser rssParser = new RssParser();
+                List<RssItem> items = rssParser
+                        .parser(Values.LINKS[mPayer][position]);
+                Values.MAP.put(key, items);
+            }
+
             // save lastpubdate in here, convert to date
            // lastPubDate = list.get(0).getDate();
           //  saveToSharedPreferences(Values.LINKS[mPayer][position],items.get(0).getPubDate());
