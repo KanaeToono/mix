@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="4"
     android:layout_height="match_parent" >
-
-    <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:id="@+id/listView"
+    <TextView
+        android:text="@string/list_news_offline"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:textSize="24sp"
+        android:background="@color/primary_dark"
+        android:textColor="@color/colorWhite"/>
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:layout_weight="3.7"
+        android:background="@drawable/backgroundrecycler"
+        android:layout_margin="10dp"
+        android:id="@+id/listView"
+        android:dividerHeight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+</LinearLayout>
