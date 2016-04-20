@@ -23,6 +23,7 @@ import javax.xml.parsers.SAXParserFactory;
  * Created by ConGa on 12/04/2016.
  */
 public class RssParser {
+    private static String TAG = RssParser.class.getSimpleName();
     public List<RssItem> parser(String link) {
         if (link.contains("www.24h.com.vn")) {
             try {
