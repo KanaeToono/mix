@@ -2,6 +2,7 @@ package com.example.conga.tvo.variables;
 
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.models.RssItem;
+import com.example.conga.tvo.models.RssItemVietNamNet;
 
 import java.util.HashMap;
 import java.util.List;
@@ -203,5 +204,6 @@ public class Values {
     public static final String[][] CATEGORIES = {VNEXPRESS_CATEGORIES, HAIBONGIO_CATEGORIES, DANTRI_CATEGORIES, VIETNAMNET_CATEGORIES};
     public static final String[][] LINKS = {VNEXPRESS_LINKS, HAIBONGIO_LINKS, DANTRI_LINKS,VIETNAMNET_LINKS};
     public static HashMap<Integer, List<RssItem>> MAP = new HashMap<Integer, List<RssItem>>();
+    public static HashMap<Integer, List<RssItemVietNamNet>> MAP_VIET_NAM_NET = new HashMap<Integer, List<RssItemVietNamNet>>();
 
 }
