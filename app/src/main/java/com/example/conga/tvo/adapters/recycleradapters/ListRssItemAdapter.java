@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.viewholders.ListLinksViewHolder;
+import com.example.conga.tvo.constants.ConstantRssItem;
 import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.databases.RssItemHelper;
 import com.example.conga.tvo.models.ContentRss;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -95,7 +97,7 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
             }
 
             class SaveContentRssAsyncTask extends AsyncTask<Void, Void, Void> {
-                String respondString = null;
+                String respondString ="";
                 static final String USER_AGENT_BROWER = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36";
 
 
@@ -106,7 +108,7 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
                     try {
                         response = Jsoup.connect(mArrayListRssItems.get(position).getLinkTag()).timeout(100*10000)
                                         .method(Connection.Method.POST)
-                                        .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36")
+                                        .userAgent(ConstantRssItem.USER_AGENT_WEB)
                                         .ignoreHttpErrors(true).execute();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -115,17 +117,35 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
                     Document document = null;
                     try {
                         document = Jsoup.connect(mArrayListRssItems.get(position).getLinkTag()).timeout(100*100000).
-                                userAgent("Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30").
+                                userAgent(ConstantRssItem.USER_AGENT_WEB2).
                                 ignoreHttpErrors(true).method(Connection.Method.POST).cookies(cookies).
                                 get();
-                      Elements elements = document.select("div [class= fck_detail width_common]");
-                       // Elements elements = document.select("html");
+                        if(mArrayListRssItems.get(position).getLinkTag().contains("vnexpress.net")) {
 
-                        respondString = elements.text();
-
+                            Elements content = document.select("div [class= fck_detail width_common]");
+                            // Elements elements = document.select("html");
+                            for (Element element : content) {
+                                respondString += element.text();
+                            }
+                        }
+                        if (mArrayListRssItems.get(position).getLinkTag().contains("dantri.com.vn")){
+                            Elements content = document.select("div#divNewsContent");
+                            // Elements elements = document.select("html");
+                            for (Element element : content) {
+                                respondString += element.text();
+                            }
+                        }
+                        if (mArrayListRssItems.get(position).getLinkTag().contains("www.24h.com")){
+                            Elements content = document.select("div.text-conent");
+                            // Elements elements = document.select("html");
+                            for (Element element : content) {
+                                respondString += element.text();
+                            }
+                        }
                         Log.d("hahah", respondString);
                         // lay ve cai title cua bai bao
                         String title = document.title();
+                        String pubDate =mArrayListRssItems.get(position).getPubDate();
                         mRssItemDatabase = new RssItemHelper(mActivity);
                         try {
                             mRssItemDatabase.open();
@@ -133,7 +153,8 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                        ContentRss contentRss = new ContentRss(title, respondString, "");
+                        // trang - green dam
+                        ContentRss contentRss = new ContentRss(title, respondString,pubDate);
                         mRssItemDatabase.addNewItemContent(contentRss);
 
 

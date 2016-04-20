@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.conga.tvo.R;
+import com.example.conga.tvo.databases.RssItemHelper;
 import com.example.conga.tvo.models.ContentRss;
 
 import java.text.SimpleDateFormat;
@@ -23,10 +24,8 @@ public class ListNewsAdapter extends BaseAdapter  {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private RssItemHelper mRssItemHelper;
 
-    private Integer[] mImageAlarm;
-    private Integer[] mImagePiorityTask;
-    private Integer[] mImageDoneTask;
 
 
     public ListNewsAdapter(Context mContext, ArrayList<ContentRss> mArrayListTasks) {
@@ -60,6 +59,7 @@ public class ListNewsAdapter extends BaseAdapter  {
     // class ViewHolder
     class ViewHolder {
         TextView textViewTitleNews;
+        TextView textViewPubDate;
     }
 //getView
     @Override
@@ -70,13 +70,16 @@ public class ListNewsAdapter extends BaseAdapter  {
             viewHolder = new ViewHolder();
 
             viewHolder.textViewTitleNews = (TextView) viewcontainer.findViewById(R.id.textViewTitleNews);
+            viewHolder.textViewPubDate= (TextView) viewcontainer.findViewById(R.id.textViewPubDate);
 
             //viewHolder.imageViewDeleteTask = (ImageView) viewcontainer.findViewById(R.id.imageView_delete_item_task);
             viewcontainer.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) viewcontainer.getTag();
         }
+
         viewHolder.textViewTitleNews.setText(mArrayListNews.get(pos).getTitle());
+       viewHolder.textViewPubDate.setText(mArrayListNews.get(pos).getImage());
 
         return viewcontainer;
     }
