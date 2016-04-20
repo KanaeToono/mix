@@ -32,4 +32,10 @@ public class ConstantRssItem {
             KEY_LINK+ " TEXT(100)," +KEY_PUBDATE+"TEXT(100), " +KEY_IMAGE_FAVORITES +"TEXT(100));";
     //drop table favorites news
     public static final String DROP_TABLE_FAVORITES_NEWS = "DROP TABLE IF EXISTS " +TABLE_NAME_FAVORITES_NEWS;
+    public  static final String USER_AGENT_MOBILE ="Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr;\" +\n" +
+            "                                        \" LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+    public  static final String USER_AGENT_WEB="Mozilla/5.0 (Windows NT 6.3; WOW64)\" +\n" +
+            "                                                \" AppleWebKit/537.36 (KHTML,\" +\n" +
+            "                                                \" like Gecko) Chrome/49.0.2623.112 Safari/537.36";
+    public static final String USER_AGENT_WEB2 ="Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36";
 }
