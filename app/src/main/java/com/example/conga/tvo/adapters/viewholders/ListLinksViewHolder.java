@@ -23,6 +23,7 @@ public class ListLinksViewHolder extends RecyclerView.ViewHolder {
     public ProgressBar progressBar ;
     public LinearLayout mLinearLayout;
     public ImageView imageViewDownload;
+    public  ImageView imageViewLike;
     public ListLinksViewHolder(View view) {
         super(view);
         mView = view;
@@ -32,6 +33,7 @@ public class ListLinksViewHolder extends RecyclerView.ViewHolder {
        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.background_item_rss_pager);
         imageViewDownload = (ImageView) view.findViewById(R.id.imageView_download);
+        imageViewLike = (ImageView) view.findViewById(R.id.imageView_like);
 
     }
 }

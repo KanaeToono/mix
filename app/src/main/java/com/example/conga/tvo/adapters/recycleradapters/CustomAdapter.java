@@ -15,7 +15,8 @@ import com.example.conga.tvo.R;
  * Created by ConGa on 11/04/2016.
  */
 public class CustomAdapter  extends BaseAdapter {
-
+    // dung de custom gridview chua nhung trang bao : vnexpress / vietnamnet/ dantri/ 24h.com.vn
+    private static String TAG = CustomAdapter.class.getSimpleName();
     String [] result;
     Context context;
     int [] imageId;
@@ -47,13 +48,15 @@ public class CustomAdapter  extends BaseAdapter {
         // TODO Auto-generated method stub
         return position;
     }
-
+// class holder
     public class Holder
     {
         TextView tv;
         ImageView img;
         FrameLayout frameLayout;
     }
+
+    //getView
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub

@@ -79,22 +79,21 @@ public class OfflineNewsListDetailFragmnet extends Fragment {
             public boolean onMenuItemClick(final int pos, SwipeMenu swipeMenu, int index) {
                 switch (index) {
                     case 0:
-                        Toast.makeText(getActivity(), "hahahha", Toast.LENGTH_SHORT).show();
                         // open
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("Item", mArrayList.get(pos));
                         Fragment toFragment = new HtmlTextviewShowNewsListsDetailsFragment();
                         toFragment.setArguments(bundle);
                         getFragmentManager().beginTransaction()
-                                .replace(R.id.content_frg, toFragment, "Item")
-                                .addToBackStack("Item").commit();
+                                .replace(R.id.main_content, toFragment)
+                                .addToBackStack(null).commit();
                         break;
                     case 1:
                         //delete
                         final AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
                         b.setTitle(R.string.question);
                         b.setMessage(R.string.messageCon);
-                        b.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                b.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
@@ -102,7 +101,7 @@ public class OfflineNewsListDetailFragmnet extends Fragment {
                                     // mTaskDatabaseAdapter.closeDB();
                                     mArrayList.remove(pos);
                                     mListNewsAdapter.notifyDataSetChanged();
-                                    Toast.makeText(getActivity().getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity().getApplicationContext(), R.string.delete, Toast.LENGTH_SHORT).show();
 
                                 } catch (Exception e) {
                                     e.printStackTrace();

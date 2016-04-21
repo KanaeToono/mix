@@ -18,4 +18,18 @@
     <string name="messageCon">Are you sure delete this items?</string>
     <string name="no">No</string>
     <string name="list_news_offline">News</string>
+    <string name="exit">Press one again to exit</string>
+    <string name="respond_server">Server is being stoped... Please , come back then</string>
+    <string name="notification_when_click_like">Liked</string>
+    <string name="respond_server_empty">webpage is being died</string>
+    <string name="respond_when_download_complete">Complete</string>
+    <string name="loading">loading...</string>
+    <string name="error">Error</string>
+    <string name="network_unvalable">Sorry there was an error getting data from the Internet. Network Unavailable!</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">cancel</string>
+    <string name="delete">delete</string>
+    <string name="avalable_network">Avalable network</string>
+    <string name="details">Details</string>
+    <string name="check_your_network">Please check your network!</string>
 </resources>

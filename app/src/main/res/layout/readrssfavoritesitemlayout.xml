@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        style="@style/MyToolbarStyle"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"

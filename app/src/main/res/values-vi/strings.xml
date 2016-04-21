@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Tvo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="name_app">Home</string>
+    <string name="textView_main_activity">Tin tức</string>
+    <string name="message">Không có mạng , làm ơn kiểm tra mạng</string>
+    <string name="loading_video">Đang tải...</string>
+    <string name="articles">Bài báo</string>
+    <string name="favorites">Yêu thích</string>
+    <string name="offline">offline</string>
+    <string name="settings">Cài đặt</string>
+    <string name="drawer_open">Mở</string>
+    <string name="drawer_close">Đóng</string>
+    <string name="yes">Vâng</string>
+    <string name="question">Câu hỏi</string>
+    <string name="messageCon">Bạn muốn xóa mục này?</string>
+    <string name="no">Không</string>
+    <string name="list_news_offline">Tin tức</string>
+    <string name="exit">Nhấn lần nữa để thoát</string>
+    <string name="respond_server">Trang web này hiện không có... Vui lòng ghé lại sau</string>
+    <string name="notification_when_click_like">Đã thêm vào mục ưa thích</string>
+    <string name="respond_server_empty">Trang web này hiện không có... Vui lòng ghé lại sau</string>
+    <string name="respond_when_download_complete">Đã tải thành công</string>
+    <string name="loading">Đang tải...</string>
+    <string name="error">Lỗi </string>
+    <string name="network_unvalable">Xin lỗi , cần kết nối mạng để sử dụng tiếp , nếu muốn!</string>
+    <string name="retry">Thử lại</string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="delete">Đã xóa</string>
+    <string name="avalable_network">Đang có mạng</string>
+    <string name="details">Chi tiết</string>
+    <string name="check_your_network">Làm ơn kiểm tra mạng !</string>
+</resources>

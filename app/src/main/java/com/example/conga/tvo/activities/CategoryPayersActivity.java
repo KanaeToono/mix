@@ -29,9 +29,7 @@ import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.CategoryRecyclerPayersAdapter;
 import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.models.RssItem;
-import com.example.conga.tvo.models.RssItemVietNamNet;
 import com.example.conga.tvo.models.RssParser;
-import com.example.conga.tvo.models.RssParserVietNamNet;
 import com.example.conga.tvo.utils.NetworkUtils;
 import com.example.conga.tvo.variables.Values;
 
@@ -52,14 +50,12 @@ public class CategoryPayersActivity extends AppCompatActivity {
     private ImageView mImageView;
     private Timer mTimer;
     private TimerTask mTimerTask;
-    public static final String MyPREFERENCES = "PubDate" ;
+    public static final String MyPREFERENCES = "PubDate";
     public static final String PUB_DATE = "dateKey";
-    public static final String LINK ="linkKey";
+    public static final String LINK = "linkKey";
     SharedPreferences sharedpreferences;
     //we are going to use a handler to be able to run in our TimerTask
     final Handler handler = new Handler();
-
-
     private final Handler timerHandler = new Handler();
 
     @Override
@@ -91,19 +87,26 @@ public class CategoryPayersActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mPayer = intent.getExtras().getInt(Values.paper);
         Log.d(TAG, mPayer + "");
-        //Toast.makeText(getApplicationContext(), "" + mPayer + "" + Values.PAYERS[mPayer] + "", Toast.LENGTH_SHORT).show();
+
+        //handle recycler
         mRecyclerView = (RecyclerView) findViewById(R.id.category_list_items);
         mRecyclerView.setHasFixedSize(true);
-        //  mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // kiem tra xem co du lieu o goi intent khong
         if (intent == null) {
             Log.d(TAG, "khong nhan dc");
         }
+        // collassing toolbar
         mCollapsingToolbarLayout.setTitle(Values.PAYERS[mPayer]);
 //            getSupportActionBar().setTitle(Values.PAYERS[mPayer]);
         //           mToolbar.setTitle(Values.PAYERS[mPayer]);
         Log.d(TAG, Values.PAYERS[mPayer]);
-        // set adapter
+
+        // set adapter tuy thuco vao tung page
+
+        // Vnexpress
         if (mPayer == 0) {
             try {
                 mCategoryRecyclerPayersAdapter = new CategoryRecyclerPayersAdapter(this, Values.BACKGROUND_PAYERS
@@ -111,30 +114,38 @@ public class CategoryPayersActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (mPayer == 1) {
+        }
+        // 24h.com.vn
+        else if (mPayer == 1) {
             mCategoryRecyclerPayersAdapter = new CategoryRecyclerPayersAdapter(this, Values.BACKGROUND_24H_PAYER
                     , Values.CATEGORIES[mPayer], onItemClickCallback);
 
-        } else if (mPayer == 2) {
+        }
+        // dantri.com.vn
+        else if (mPayer == 2) {
             mCategoryRecyclerPayersAdapter = new CategoryRecyclerPayersAdapter(this, Values.BACKGROUNDS_DANTRI
                     , Values.CATEGORIES[mPayer], onItemClickCallback);
 
-        } else if (mPayer == 3) {
+        }
+        //vietnamnet.vn
+        else if (mPayer == 3) {
             mCategoryRecyclerPayersAdapter = new CategoryRecyclerPayersAdapter(this, Values.BACKGROUNDS_VIETNAMNET
                     , Values.CATEGORIES[mPayer], onItemClickCallback);
 
         }
 
-
+        // set adapter cho recycler view
         mRecyclerView.setAdapter(mCategoryRecyclerPayersAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        // bat dau timer , cho zoom background
         startTimer();
     }
 
+    // bat dau timer
     public void startTimer() {
         //set a new Timer
         mTimer = new Timer();
@@ -170,38 +181,36 @@ public class CategoryPayersActivity extends AppCompatActivity {
         };
     }
 
-
+// xu li khi click vao item tung trang
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = new OnItemClickListener.OnItemClickCallback() {
         @Override
         public void onItemClicked(View view, int position) {
             Log.d(TAG, "CREATE LISTITEM AGAIN");
             if (mNetworkUtils.isConnectingToInternet()) {
+                int key = 1000 * mPayer + position;
+                if (Values.MAP.containsKey(key)) {
+                    Intent intent = new Intent(CategoryPayersActivity.this, ListLinksRssItemActivity.class);
+                    intent.putExtra(Values.paper, mPayer);
+                    intent.putExtra(Values.category, position);
+                    intent.putExtra(Values.key, key);
+                    startActivity(intent);
+                } else {
+                    mProgressDialog = ProgressDialog.show(CategoryPayersActivity.this, "", getString(R.string.loading));
+                    new RssTask().execute(position);
+                }
 
-                    int key = 1000 * mPayer + position;
-                    if (Values.MAP.containsKey(key)) {
-                        Intent intent = new Intent(CategoryPayersActivity.this, ListLinksRssItemActivity.class);
-                        intent.putExtra(Values.paper, mPayer);
-                        intent.putExtra(Values.category, position);
-                        intent.putExtra(Values.key, key);
-                        startActivity(intent);
-                    } else {
-                        mProgressDialog = ProgressDialog.show(CategoryPayersActivity.this, "", "Loading...");
-                        new RssTask().execute(position);
-                    }
 
-
-            }else {
+            } else {
                 //xuat ra message neu khong co mang
                 Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-
+// RssTask dung parse rss
     private class RssTask extends AsyncTask<Integer, Void, Void> {
         private int position;
         private int key;
-
 
         @Override
         protected void onPreExecute() {
@@ -215,23 +224,23 @@ public class CategoryPayersActivity extends AppCompatActivity {
         protected Void doInBackground(Integer... params) {
             position = params[0];
             key = 1000 * mPayer + position;
-            if (Values.PAYERS[mPayer].equalsIgnoreCase("VIETNAMNET")){
-                RssParserVietNamNet rssParserVietNamNet
-                        = new RssParserVietNamNet();
-                List<RssItemVietNamNet> vietNamNetList = rssParserVietNamNet.parser(Values.LINKS[mPayer][position]);
-                Values.MAP_VIET_NAM_NET.put(key, vietNamNetList);
-            }
-            else {
-                RssParser rssParser = new RssParser();
-                List<RssItem> items = rssParser
-                        .parser(Values.LINKS[mPayer][position]);
-                Values.MAP.put(key, items);
-            }
+//            if (Values.PAYERS[mPayer].equalsIgnoreCase("VIETNAMNET")){
+//                RssParserVietNamNet rssParserVietNamNet
+//                        = new RssParserVietNamNet();
+//                List<RssItemVietNamNet> vietNamNetList = rssParserVietNamNet.parser(Values.LINKS[mPayer][position]);
+//                Values.MAP_VIET_NAM_NET.put(key, vietNamNetList);
+//            }
+//            else {
+            RssParser rssParser = new RssParser(CategoryPayersActivity.this);
+            List<RssItem> items = rssParser
+                    .parser(Values.LINKS[mPayer][position]);
+            Values.MAP.put(key, items);
+            // }
 
             // save lastpubdate in here, convert to date
-           // lastPubDate = list.get(0).getDate();
-          //  saveToSharedPreferences(Values.LINKS[mPayer][position],items.get(0).getPubDate());
-        //    Log.d(TAG, items.get(0).getPubDate().getTime()+"");
+            // lastPubDate = list.get(0).getDate();
+            //  saveToSharedPreferences(Values.LINKS[mPayer][position],items.get(0).getPubDate());
+            //    Log.d(TAG, items.get(0).getPubDate().getTime()+"");
             return null;
         }
 
@@ -251,10 +260,10 @@ public class CategoryPayersActivity extends AppCompatActivity {
         }
     }
 
-    private void saveToSharedPreferences(String link,String pubDate) {
+    private void saveToSharedPreferences(String link, String pubDate) {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-                 editor.putString(LINK, link);
-            editor.putString(PUB_DATE, pubDate);
+        editor.putString(LINK, link);
+        editor.putString(PUB_DATE, pubDate);
         editor.commit();
     }
 

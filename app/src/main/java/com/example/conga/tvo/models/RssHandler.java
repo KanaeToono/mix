@@ -58,7 +58,7 @@ public class RssHandler extends DefaultHandler{
             Log.d("Link", item.getLink());
              Log.d("Date", item.getPubDate());
             Log.d("Image", item.getImage());
-           Log.d("Link Tag" , item.getLinkTag());
+         //  Log.d("Link Tag" , item.getLinkTag());
         } else if (started) {
             if (localName.equalsIgnoreCase(TITLE)) {
                 item.setTitle(sBuffer.toString().trim());

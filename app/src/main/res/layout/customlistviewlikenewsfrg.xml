@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="100dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/background_item_rss_pager"
+        android:background="@color/green"
+        android:weightSum="6"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_weight="6"
+            android:weightSum="6"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <FrameLayout
+                android:layout_marginTop="5dp"
+                android:paddingLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:src="@drawable/pagenotnetwork"
+                    android:id="@+id/imageView_title_like"
+                    android:layout_width="90dp"
+                    android:layout_height="70dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <TextView
+
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/textView_title_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imageView_title_icon"
+                    android:layout_weight="3"
+                    android:textColor ="@color/colorWhite"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:textColor ="@color/colorWhite"
+                    android:id="@+id/textViewPubdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+
+                    android:textSize="12sp" />
+                <!--<ImageView-->
+                <!--android:src="@drawable/ic_file_download_black_24dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:id="@+id/imageView_download"/>-->
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

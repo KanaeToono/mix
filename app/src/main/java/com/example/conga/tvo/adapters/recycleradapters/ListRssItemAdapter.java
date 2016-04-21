@@ -20,6 +20,7 @@ import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.databases.RssItemHelper;
 import com.example.conga.tvo.models.ContentRss;
 import com.example.conga.tvo.models.RssItem;
+import com.example.conga.tvo.utils.NetworkUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -48,6 +49,7 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
     private Activity mActivity;
     private static final int HTTP_OK = 200;
     private ProgressDialog mProgressDialog;
+    private NetworkUtils mNetworkUtils;
     // constructor
 
     public ListRssItemAdapter(Activity mContext, List<RssItem> mArrayListRssItems,
@@ -58,6 +60,7 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
         mLayoutInflater = LayoutInflater.from(mContext);
         this.onItemClickCallback = onItemClickCallback;
         prefs = mContext.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+        mNetworkUtils = new NetworkUtils(mContext);
 
 
     }
@@ -76,17 +79,45 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
 
         holder.textViewTitleRss.setText(mArrayListRssItems.get(position).getTitle());
         holder.textViewPubDate.setText(mArrayListRssItems.get(position).getPubDate());
+        // xu li phan nut like , bo vao muc favorites
+        holder.imageViewLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRssItemDatabase = new RssItemHelper(mActivity);
+                try {
+                    mRssItemDatabase.open();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String title = mArrayListRssItems.get(position).getTitle();
+                String pubDate = mArrayListRssItems.get(position).getPubDate();
+                String image = mArrayListRssItems.get(position).getImage();
+                String link = mArrayListRssItems.get(position).getLink();
+                RssItem rssItem = new RssItem(title, link, pubDate, image);
+                mRssItemDatabase.addNewItemRss(rssItem);
+                mRssItemDatabase.closeDatabase();
+                Toast.makeText(mActivity, R.string.notification_when_click_like, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        // xu li phan download de doc offline
+
         holder.imageViewDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mActivity, "123456", Toast.LENGTH_SHORT).show();
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String linkTag = mArrayListRssItems.get(position).getLinkTag();
-                        new SaveContentRssAsyncTask().execute();
-                    }
-                });
+if(mNetworkUtils.isConnectingToInternet()) {
+    mActivity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            //       String linkTag = mArrayListRssItems.get(position).getLinkTag();
+            new SaveContentRssAsyncTask().execute();
+        }
+    });
+}
+                else {
+    Toast.makeText(mActivity, R.string.network_unvalable, Toast.LENGTH_SHORT).show();
+                }
 //                mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 //                    @Override
 //                    public void onCancel(DialogInterface dialog) {
@@ -97,30 +128,30 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
             }
 
             class SaveContentRssAsyncTask extends AsyncTask<Void, Void, Void> {
-                String respondString ="";
+                String respondString = "";
                 static final String USER_AGENT_BROWER = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36";
 
 
                 @Override
                 protected Void doInBackground(Void... params) {
 
-                    Connection.Response response= null;
+                    Connection.Response response = null;
                     try {
-                        response = Jsoup.connect(mArrayListRssItems.get(position).getLinkTag()).timeout(100*10000)
-                                        .method(Connection.Method.POST)
-                                        .userAgent(ConstantRssItem.USER_AGENT_WEB)
-                                        .ignoreHttpErrors(true).execute();
+                        response = Jsoup.connect(mArrayListRssItems.get(position).getLink()).timeout(100 * 10000)
+                                .method(Connection.Method.POST)
+                                .userAgent(ConstantRssItem.USER_AGENT_WEB)
+                                .ignoreHttpErrors(true).execute();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Map<String , String> cookies =response.cookies();
+                    Map<String, String> cookies = response.cookies();
                     Document document = null;
                     try {
-                        document = Jsoup.connect(mArrayListRssItems.get(position).getLinkTag()).timeout(100*100000).
+                        document = Jsoup.connect(mArrayListRssItems.get(position).getLink()).timeout(100 * 100000).
                                 userAgent(ConstantRssItem.USER_AGENT_WEB2).
                                 ignoreHttpErrors(true).method(Connection.Method.POST).cookies(cookies).
                                 get();
-                        if(mArrayListRssItems.get(position).getLinkTag().contains("vnexpress.net")) {
+                        if (mArrayListRssItems.get(position).getLink().contains("vnexpress.net")) {
 
                             Elements content = document.select("div [class= fck_detail width_common]");
                             // Elements elements = document.select("html");
@@ -128,34 +159,43 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
                                 respondString += element.text();
                             }
                         }
-                        if (mArrayListRssItems.get(position).getLinkTag().contains("dantri.com.vn")){
+                        if (mArrayListRssItems.get(position).getLink().contains("dantri.com.vn")) {
                             Elements content = document.select("div#divNewsContent");
                             // Elements elements = document.select("html");
                             for (Element element : content) {
                                 respondString += element.text();
                             }
                         }
-                        if (mArrayListRssItems.get(position).getLinkTag().contains("www.24h.com")){
+                        if (mArrayListRssItems.get(position).getLink().contains("www.24h.com")) {
                             Elements content = document.select("div.text-conent");
                             // Elements elements = document.select("html");
                             for (Element element : content) {
                                 respondString += element.text();
                             }
+
                         }
-                        Log.d("hahah", respondString);
+                        if (mArrayListRssItems.get(position).getLink().contains("vietnamnet.vn")) {
+                            Elements content = document.select("div [class = ArticleDetail]");
+                            // Elements elements = document.select("html");
+                            for (Element element : content) {
+                                respondString += element.text();
+                            }
+                        }
+                        Log.d(TAG, respondString);
                         // lay ve cai title cua bai bao
                         String title = document.title();
-                        String pubDate =mArrayListRssItems.get(position).getPubDate();
+                        String pubDate = mArrayListRssItems.get(position).getPubDate();
                         mRssItemDatabase = new RssItemHelper(mActivity);
                         try {
                             mRssItemDatabase.open();
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        // trang - green dam
-                        ContentRss contentRss = new ContentRss(title, respondString,pubDate);
+                        // THEM VAO CSDL
+                        ContentRss contentRss = new ContentRss(title, respondString, pubDate);
                         mRssItemDatabase.addNewItemContent(contentRss);
+                        mRssItemDatabase.closeDatabase();
 
 
                     } catch (IOException e) {
@@ -163,13 +203,14 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
                     }
                     // Elements elements = document.select("div [class= fck_detail width_common]");
 
-                   // ContentRss contentRss= new ContentRss(title, result,"" );
+                    // ContentRss contentRss= new ContentRss(title, result,"" );
                     return null;
                 }
 
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
+                    Toast.makeText(mActivity, R.string.respond_when_download_complete, Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -177,11 +218,11 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
 
         });
         //
-        int key = prefs.getInt("STATUS_KEY", 0);
-        int pos = prefs.getInt("POSITION", 0);
-        if (key == 1 && pos == position) {
-            holder.mLinearLayout.setBackgroundResource(R.color.colorWhite);
-        }
+//        int key = prefs.getInt("STATUS_KEY", 0);
+//        int pos = prefs.getInt("POSITION", 0);
+//        if (key == 1 && pos == position) {
+//            holder.mLinearLayout.setBackgroundResource(R.color.colorWhite);
+//        }
         //
         if (mArrayListRssItems.get(position).getImage() == null) {
             holder.imageViewImageTitle.setBackgroundResource(R.drawable.blue);
@@ -216,7 +257,15 @@ public class ListRssItemAdapter extends RecyclerView.Adapter<ListLinksViewHolder
 
     @Override
     public int getItemCount() {
-        return mArrayListRssItems.size();
+
+        if (mArrayListRssItems == null) {
+
+           // Toast.makeText(mActivity, R.string.respond_server_empty, Toast.LENGTH_SHORT).show();
+            return 0;
+        } else {
+            return mArrayListRssItems.size();
+        }
+//        return mArrayListRssItems == null ? 0 : mArrayListRssItems.size();
     }
 
 

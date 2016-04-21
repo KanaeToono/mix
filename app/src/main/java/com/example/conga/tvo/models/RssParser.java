@@ -1,7 +1,14 @@
 package com.example.conga.tvo.models;
 
+import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.conga.tvo.R;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -24,6 +31,13 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class RssParser {
     private static String TAG = RssParser.class.getSimpleName();
+    private Activity mActivity;
+
+    public RssParser(Activity mActivity) {
+        this.mActivity = mActivity;
+        Log.d(TAG, "Constructor RssParse");
+    }
+// parse rss
     public List<RssItem> parser(String link) {
         if (link.contains("www.24h.com.vn")) {
             try {
@@ -47,6 +61,10 @@ public class RssParser {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpGet httpget = new HttpGet(link);
                 HttpResponse response = httpclient.execute(httpget);
+                if (response.getStatusLine().getStatusCode() < 200 || response.getStatusLine().getStatusCode() >= 400) {
+                    throw new Exception("Got bad response, error code = " + response.getStatusLine().getStatusCode());
+                  //  call_toast(mActivity);
+                }
                 HttpEntity entity = response.getEntity();
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 factory.setValidating(false);
@@ -73,11 +91,24 @@ public class RssParser {
                 e.printStackTrace();
                 // result.setText("Cannot connect RSS!");
                 return null;
+       } catch (ClientProtocolException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+// catch (IOException e) {
+//                e.printStackTrace();
                 // result.setText("Cannot connect RSS!");
                 return null;
             }
         }
+
+// goi toast ra , gui ve activity
+    private void call_toast(Activity mContext) {
+        Toast.makeText(mContext, R.string.respond_server, Toast.LENGTH_SHORT).show();
+
+
     }
 }

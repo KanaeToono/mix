@@ -16,12 +16,10 @@ import android.widget.Toast;
 
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.ListRssItemAdapter;
-import com.example.conga.tvo.adapters.recycleradapters.ListRssItemVietNamNetAdapter;
 import com.example.conga.tvo.controllers.OnItemClickListener;
 import com.example.conga.tvo.models.RssItem;
-import com.example.conga.tvo.models.RssItemVietNamNet;
-import com.example.conga.tvo.variables.Values;
 import com.example.conga.tvo.utils.NetworkUtils;
+import com.example.conga.tvo.variables.Values;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -38,10 +36,9 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
     private int mCategory;
     private int mKey;
     private ListRssItemAdapter mListRssItemAdapter;
-    private ListRssItemVietNamNetAdapter mListRssItemVietNamNetAdapter;
     private NetworkUtils mNetworkUtils;
     private RecyclerView mRecyclerView;
-    public static final String MyPREFERENCES = "StatusLayoutItem" ;
+    public static final String MyPREFERENCES = "StatusLayoutItem";
     public static final String STATUS_KEY = "statusKry";
     public SharedPreferences sharedpreferences;
     private ProgressDialog mProgressDialog;
@@ -53,7 +50,7 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
         setContentView(R.layout.detailslistlinksrsslayout);
         //create sharepreference
         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
-// config dowload image
+        // config dowload image
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
@@ -67,12 +64,12 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
 
         // handle toobar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentCategory = new Intent(ListLinksRssItemActivity.this, CategoryPayersActivity.class);
-                startActivity(intentCategory);
+                finish();
             }
         });
 
@@ -91,23 +88,23 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
         mToolbar.setTitle(Values.PAYERS[mPayer] + " - "
                 + Values.CATEGORIES[mPayer][mCategory]);
         List<RssItem> items = Values.MAP.get(mKey);
-        List<RssItemVietNamNet> itemsVietNamNet = Values.MAP_VIET_NAM_NET.get(mKey);
+        //   List<RssItemVietNamNet> itemsVietNamNet = Values.MAP_VIET_NAM_NET.get(mKey);
         Log.d(TAG, items + "");
+
         // recycler view show items
         mRecyclerView = (RecyclerView) findViewById(R.id.list_links);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         // set adapter
-        if(mPayer == 3) {
-            mListRssItemVietNamNetAdapter = new ListRssItemVietNamNetAdapter(this, itemsVietNamNet, onItemClickCallback);
-            mRecyclerView.setAdapter(mListRssItemVietNamNetAdapter);
+        //kiem tra xem items co chua gi khong
+        if(items==null){
+            Toast.makeText(getApplicationContext(), R.string.respond_server_empty, Toast.LENGTH_SHORT).show();
         }
         else {
             mListRssItemAdapter = new ListRssItemAdapter(this, items, onItemClickCallback);
             mRecyclerView.setAdapter(mListRssItemAdapter);
         }
-
 
         mNetworkUtils = new NetworkUtils(this);
 
@@ -128,9 +125,7 @@ public class ListLinksRssItemActivity extends AppCompatActivity {
                 editor.putInt("STATUS_KEY", 1);
 
                 editor.commit();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT).show();
             }
         }

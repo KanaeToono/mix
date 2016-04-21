@@ -1,7 +1,17 @@
 package com.example.conga.tvo.activities;
 
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,12 +26,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.NavDrawerListAdapter;
 import com.example.conga.tvo.fragments.ArticlesCategoryFragmnet;
 import com.example.conga.tvo.fragments.FavoritesNewsFragment;
-import com.example.conga.tvo.fragments.OfllineNewsListFragment;
+import com.example.conga.tvo.fragments.OfflineNewsListDetailFragmnet;
 import com.example.conga.tvo.models.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -40,11 +51,21 @@ public class MainActivity extends AppCompatActivity {
     private NavDrawerListAdapter mNavDrawerListAdapter;
     private Toolbar mToolbar;
     private ArrayList<NavDrawerItem> mDataList;
+    private Boolean exit = false;
+    private static final String LOG_TAG = "CheckNetworkStatus";
+    private NetworkChangeReceiver receiver;
+    private boolean isConnected = false;
+    private IntentFilter filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //kiem tra network
+        filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkChangeReceiver();
+
         // bắt đầu  gridview chứa các trang báo : dân trí , vietnamnet , vnexpress, offline , yêu thích , vnexpress
 //        mGridView = (GridView) findViewById(R.id.gridView);
 //        mGridView.setAdapter(new CustomAdapter(this, Values.PAYERS, Values.ICON_PAYER));
@@ -68,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         mDataList.add(new NavDrawerItem(getString(R.string.articles), R.drawable.articles));
         mDataList.add(new NavDrawerItem(getString(R.string.favorites), R.drawable.star_on));
         mDataList.add(new NavDrawerItem(getString(R.string.offline), R.drawable.ic_file_download_black_24dp));
-        mDataList.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_settings_black_24dp));
+        // mDataList.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_settings_black_24dp));
 //        mDataList.add(new NavDrawerItem(getString(R.string.title_nav_add_on), R.drawable.tienich1));
 //        mDataList.add(new NavDrawerItem(getString(R.string.title_nav_about_app), R.drawable.about1));
 
@@ -110,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public void SelectItem(int possition) {
 
         Fragment fragment = null;
@@ -128,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case 2:
-                fragment = new OfllineNewsListFragment();
-                args.putString(OfllineNewsListFragment.ITEM_NAME, mDataList.get(possition)
+                fragment = new OfflineNewsListDetailFragmnet();
+                args.putString(OfflineNewsListDetailFragmnet.ITEM_NAME, mDataList.get(possition)
                         .getTitle());
                 break;
 //            case 3:
@@ -157,6 +179,50 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // kiem tra network
+    public class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfoWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            boolean isConnectedWifi = networkInfoWifi != null && networkInfoWifi.isConnectedOrConnecting();
+            NetworkInfo networkInfoMobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            boolean isConnectedMobile = networkInfoMobile != null && networkInfoMobile.isConnectedOrConnecting();
+            if (isConnectedWifi || isConnectedMobile) {
+                Log.d("NET", "Connected");
+               // Toast.makeText(context.getApplicationContext(), R.string.avalable_network, Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d("NET", " not Connect ");
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.error);
+                builder.setMessage(R.string.network_unvalable);
+                ;
+                //  AlertDialog dialog = builder.create();
+                builder.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+                //dialog.show();
+                // Toast.makeText(context.getApplicationContext(), R.string.network_unvalable, Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+    //setTitle
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
@@ -203,11 +269,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //  getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -221,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        registerReceiver(receiver, filter);
         Log.d(TAG, "ON RESUME MAIN ACTIVITY");
     }
 
@@ -245,10 +311,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(receiver);
         Log.d(TAG, "ON DESTROY MAIN ACTIVITY");
     }
 
-//    @Override
+    @Override
+    public void onBackPressed() {
+      //  super.onBackPressed();
+        if (exit) {
+            super.onBackPressed();
+            return;
+        }
+        this.exit = true;
+        Toast.makeText(this, R.string.exit, Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                exit = false;
+            }
+        }, 2000);
+    }
+
+    //    @Override
 //    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
 //        Intent intent = new Intent(MainActivity.this, CategoryPayersActivity.class);
 //        intent.putExtra(Values.paper, pos);

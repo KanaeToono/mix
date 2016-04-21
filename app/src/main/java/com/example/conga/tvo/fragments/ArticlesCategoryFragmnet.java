@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ public class ArticlesCategoryFragmnet extends Fragment implements AdapterView.On
     private static String TAG = ArticlesCategoryFragmnet.class.getSimpleName();
     private GridView mGridView;
     private Activity mActivity;
+    private Boolean exit =false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class ArticlesCategoryFragmnet extends Fragment implements AdapterView.On
         intent.putExtra(Values.paper, pos);
         startActivity(intent);
     }
-    // Xử lí khi nhấn back press
 
     @Override
     public void onStart() {
@@ -72,18 +71,18 @@ public class ArticlesCategoryFragmnet extends Fragment implements AdapterView.On
     @Override
     public void onResume() {
         super.onResume();
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    getActivity().finish();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        getView().setFocusableInTouchMode(true);
+//        getView().requestFocus();
+//        getView().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+//                    getActivity().finish();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override
