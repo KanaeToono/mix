@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //kiem tra network
         filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         receiver = new NetworkChangeReceiver();
+        registerReceiver(receiver, filter);
 
         // bắt đầu  gridview chứa các trang báo : dân trí , vietnamnet , vnexpress, offline , yêu thích , vnexpress
 //        mGridView = (GridView) findViewById(R.id.gridView);
@@ -286,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, filter);
+
         Log.d(TAG, "ON RESUME MAIN ACTIVITY");
     }
 

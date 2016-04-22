@@ -49,6 +49,7 @@ public class CategoryRecyclerPayersAdapter extends RecyclerView.Adapter<Category
 
     @Override
     public int getItemCount() {
-        return mListPayers.length;
+//        return mListPayers.length;
+        return mListPayers== null ? 0 : mListPayers.length;
     }
 }

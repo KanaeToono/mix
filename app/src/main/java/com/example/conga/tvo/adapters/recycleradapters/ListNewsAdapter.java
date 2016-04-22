@@ -37,7 +37,8 @@ public class ListNewsAdapter extends BaseAdapter  {
 
     @Override
     public int getCount() {
-        return mArrayListNews.size();
+       // return mArrayListNews.size();
+        return mArrayListNews == null ? 0 : mArrayListNews.size();
     }
 
     @Override

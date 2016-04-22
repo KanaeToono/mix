@@ -34,9 +34,9 @@ public class CustomAdapter  extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return result.length;
+        //return result.length;
+        return result == null ? 0 : result.length;
     }
-
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
