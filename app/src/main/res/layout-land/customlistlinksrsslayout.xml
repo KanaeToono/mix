@@ -18,8 +18,8 @@
             <ImageView
                 android:src="@drawable/pagenotnetwork"
                 android:id="@+id/imageView_title_icon"
-                android:layout_width="80dp"
-                android:layout_height="70dp" />
+                android:layout_width="60dp"
+                android:layout_height="61dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

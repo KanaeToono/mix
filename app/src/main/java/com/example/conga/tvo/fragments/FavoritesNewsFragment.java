@@ -1,5 +1,7 @@
 package com.example.conga.tvo.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -134,7 +136,7 @@ public class FavoritesNewsFragment extends Fragment {
                                     // mTaskDatabaseAdapter.closeDB();
                                     mArrayList.remove(pos);
                                     mListNewsAdapter.notifyDataSetChanged();
-                                    Toast.makeText(getActivity().getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity().getApplicationContext(), R.string.delete, Toast.LENGTH_SHORT).show();
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -186,5 +188,82 @@ public class FavoritesNewsFragment extends Fragment {
     private int dp2px (int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getActivity().getResources().getDisplayMetrics());
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, " start");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//       getView().setFocusableInTouchMode(true);
+//        getView().requestFocus();
+//        getView().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+//                    callBackFragment();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+    }
+
+    private void callBackFragment() {
+//        Fragment notyficationFrag = new ArticlesCategoryFragmnet();
+//        FragmentManager fragmentManager = getActivity()
+//                .getSupportFragmentManager();
+//        ;
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//        fragmentTransaction.replace(R.id.main_content, notyficationFrag);
+//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "PAUSE ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "STOP ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "on destroy view");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "DESTROY ");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "ATTACH");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "ON DETACH ");
     }
 }

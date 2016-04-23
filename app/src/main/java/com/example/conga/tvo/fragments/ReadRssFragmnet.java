@@ -271,5 +271,7 @@ public class ReadRssFragmnet extends Fragment {
     private void webViewGoBack(){
         webView.goBack();
     }
+
+
 }
 
