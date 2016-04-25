@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:weightSum ="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:id="@+id/imageView_title_icon"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_note_add_black_18dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="16dp" />
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/textView_subject_task"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView_title_icon"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/textView_date_start_task"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_subject_task"
+                android:layout_toRightOf="@+id/imageView_title_icon"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/textView_time_start_task"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_subject_task"
+                android:layout_toRightOf="@+id/textView_date_start_task"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/textView_date_end_task"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_date_start_task"
+                android:layout_toRightOf="@+id/imageView_title_icon"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/textView_time_end_task"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_time_start_task"
+                android:layout_toRightOf="@+id/textView_date_end_task"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/imageView_mark_task_important"
+                android:src="@drawable/ic_star_border_black_18dp"
+                android:layout_toRightOf="@+id/textView_subject_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/imageView_mark_task_done"
+                android:layout_toRightOf="@+id/imageView_mark_task_important"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_done_black_18dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_weight="3"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_alarm_off_black_18dp"
+                android:id="@+id/imageView_turn_reminder_task"
+                android:layout_toRightOf="@+id/imageView_mark_task_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

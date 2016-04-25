@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:weightSum="5">
+
+    <ImageView
+        android:id="@+id/imageView_title_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_note_add_black_18dp" />
+
+    <TextView
+        android:textColor="@color/orange"
+        android:textStyle="bold"
+        android:id="@+id/textView_subject_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageView_title_icon"
+        android:layout_weight="3"
+        android:textSize="15sp" />
+
+    <TextView
+        android:textColor="@color/blue"
+        android:id="@+id/textView_date_start_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_subject_task"
+        android:layout_toRightOf="@+id/imageView_title_icon"
+        android:layout_weight="3"
+        android:textSize="12sp" />
+
+    <TextView
+        android:textColor="@color/blue"
+        android:id="@+id/textView_time_start_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_subject_task"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/textView_date_start_task"
+        android:layout_weight="3"
+        android:textSize="12sp" />
+
+    <TextView
+
+        android:textColor="@color/red"
+        android:id="@+id/textView_date_end_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_date_start_task"
+        android:layout_toRightOf="@+id/imageView_title_icon"
+        android:layout_weight="3"
+        android:textSize="12sp" />
+
+    <TextView
+        android:textColor="@color/red"
+        android:id="@+id/textView_time_end_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_time_start_task"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/textView_date_end_task"
+        android:layout_weight="3"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageView_mark_task_important"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/textView_date_start_task"
+        android:layout_weight="1"
+        android:src="@drawable/ic_star_black_18dp" />
+
+    <ImageView
+        android:id="@+id/imageView_mark_task_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/imageView_mark_task_important"
+        android:layout_weight="1"
+        android:src="@drawable/ic_done_black_18dp" />
+
+    <ImageView
+        android:id="@+id/imageView_turn_reminder_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/imageView_mark_task_done"
+        android:layout_weight="3" />
+
+
+</RelativeLayout>

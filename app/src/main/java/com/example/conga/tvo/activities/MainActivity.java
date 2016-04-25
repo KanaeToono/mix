@@ -28,11 +28,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.conga.tvo.R;
 import com.example.conga.tvo.adapters.recycleradapters.NavDrawerListAdapter;
 import com.example.conga.tvo.fragments.ArticlesCategoryFragmnet;
-import com.example.conga.tvo.fragments.FavoritesNewsFragment;
-import com.example.conga.tvo.fragments.OfflineNewsListDetailFragmnet;
+
 import com.example.conga.tvo.models.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         // Add Drawer Item to dataList
         mDataList.add(new NavDrawerItem(getString(R.string.articles), R.drawable.articles));
-        mDataList.add(new NavDrawerItem(getString(R.string.favorites), R.drawable.star_on));
+        mDataList.add(new NavDrawerItem("mở rộng", R.drawable.tienich1));
         mDataList.add(new NavDrawerItem(getString(R.string.offline), R.drawable.ic_file_download_black_24dp));
         // mDataList.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_settings_black_24dp));
 //        mDataList.add(new NavDrawerItem(getString(R.string.title_nav_add_on), R.drawable.tienich1));
@@ -144,17 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         .getTitle());
 
                 break;
-            case 1:
-                fragment = new FavoritesNewsFragment();
-                args.putString(FavoritesNewsFragment.ITEM_NAME, mDataList.get(possition)
-                        .getTitle());
 
-                break;
-            case 2:
-                fragment = new OfflineNewsListDetailFragmnet();
-                args.putString(OfflineNewsListDetailFragmnet.ITEM_NAME, mDataList.get(possition)
-                        .getTitle());
-                break;
 //            case 3:
 //                fragment = new Setting();
 //                args.putString(Setting.ITEM_NAME, mDataList.get(possition)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_thoi_su"
+        android:title="@string/action_thoi_su"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_world_news"
+        android:title="@string/action_world_news"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_entertament_news"
+        android:title="@string/action_entertaiment"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_health_news"
+        android:title="@string/action_health_news"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_sport_news"
+        android:title="@string/action_sport_news"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_home"
+        android:title="@string/action_home"
+        app:showAsAction="always|withText" />
+
+</menu>

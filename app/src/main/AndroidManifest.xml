@@ -19,10 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CategoryPayersActivity"/>
-        <activity android:name=".activities.ListLinksRssItemActivity"/>
-        <activity android:name=".activities.ReadRssActivity"/>
+<service android:name="services.UpdateNewFeedService"/>
+        <service android:name="services.UpdateNewFeedKhoaTinService"/>
+        <receiver android:name=".broadcastreceiver.OnAlarmReceiver"/>
+        <service android:name=".services.ReminderService"/>
+        <activity android:name=".activities.DetailsTask"
+            android:label="@string/textViewDetails"
+            android:theme="@android:style/Theme.Holo.Dialog">>
 
+        </activity>
     </application>
 
 </manifest>

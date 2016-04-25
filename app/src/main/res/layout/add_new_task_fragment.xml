@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/add_new_task_layout"
+    tools:context="com.example.conga.finaltest.fragments.AddNewTaskFragment"
+ >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="@string/textView_add_new_task"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editText_subject_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:layout_marginLeft="10dp"
+        android:hint="@string/editText_add_new_task"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/textView_btn_date_time_start"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_date_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/textView_btn_date_start"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btn_time_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/textView_btn_time_start"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/textView_btn_date_time_end"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_date_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/textView_btn_date_end"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btn_time_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/textView_btn_time_end"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_weight="0.54"
+            android:text="@string/textView_spinner"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinner_piority_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.12"
+            android:textSize="12sp">
+
+        </Spinner>
+
+        <ImageView
+             android:layout_marginTop="15dp"
+            android:id="@+id/imageView_btn_piority_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <EditText
+        android:layout_marginLeft="10dp"
+        android:id="@+id/editText_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/editText_description_task"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_done_black_18dp" />
+
+        <ImageButton
+            android:layout_marginLeft="30dp"
+            android:id="@+id/imageButton_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_black_18dp" />
+    </LinearLayout>
+</LinearLayout>

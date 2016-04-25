@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context ="com.example.conga.finaltest.fragments.NotificationsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_menu_choose_item_menu_rss"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_menu_white_24dp"
+        android:title="@string/action_choose_item_menu_rss"/>
+    <item
+        android:id="@+id/action_refresh_notification"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="@string/action_refresh"/>
+    <item
+        android:id="@+id/action_press_row_forward"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_arrow_forward_white_24dp"
+        android:title="@string/action_back_to_before_frg"/>
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:title="@string/action_share_info"/>
+</menu>

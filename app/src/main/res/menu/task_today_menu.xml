@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_show_task_today"
+        android:title="@string/action_show_task_today"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_show_complete_task"
+        android:title="@string/action_show_complete_task"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_show_incomplete_task"
+        android:title="@string/action_incomplete_task"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_important_task"
+        android:title="@string/action_important_task"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_default"
+        android:title="@string/action_show_default_tasks"
+        app:showAsAction="always|withText" />
+
+</menu>

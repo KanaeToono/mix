@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:weightSum="6">
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:id="@+id/imageView_title_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
+    <TextView
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#111111"
+        android:textStyle="bold"
+        android:id="@+id/textView_title_news"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageView_title_icon"
+        android:layout_weight="3"
+        android:textSize="15sp" />
+
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageView_mark_rss_important"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textView_title_news"
+        android:layout_weight="1"
+        android:src="@drawable/ic_star_border_black_18dp" />
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageView_mark_read_rss"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imageView_mark_rss_important"
+        android:layout_weight="1"
+        android:src="@drawable/ic_done_black_18dp" />
+
+
+</LinearLayout>

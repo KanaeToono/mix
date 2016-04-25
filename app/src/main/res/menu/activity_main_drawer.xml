@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_rss_vn_express" android:icon="@drawable/express1"
+            android:title="@string/title_nav_inCountry_news" />
+        <item android:id="@+id/nav_rss_cnn" android:icon="@drawable/cnn1"
+            android:title="@string/title_nav_national_news" />
+
+    </group>
+
+    <!--<item android:title="@string/action_extensive">-->
+        <!--&lt;!&ndash;<menu>&ndash;&gt;-->
+            <!--&lt;!&ndash;<item android:id="@+id/nav_home" android:icon="@drawable/ic_home_black_18dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/nave_home" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<item android:id="@+id/nav_tasks_today" android:icon="@drawable/ic_schedule_black_18dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/nav_list_tasks_today" />&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<item android:id="@+id/nav_sort_task" android:icon="@drawable/ic_sort_black_18dp"&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;android:title="@string/nav_sort_task" />&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<item android:id="@+id/nav_add_new_task_lunar_calendar" android:icon="@drawable/ic_note_add_black_18dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/nav_add_new_task_lunar_calendar" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<item android:id="@+id/nav_search_task" android:icon="@drawable/ic_search_black_18dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/nav_search_task" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>

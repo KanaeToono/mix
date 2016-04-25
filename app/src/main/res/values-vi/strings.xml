@@ -7,8 +7,8 @@
     <string name="textView_main_activity">Tin tức</string>
     <string name="message">Không có mạng , làm ơn kiểm tra mạng</string>
     <string name="loading_video">Đang tải...</string>
-    <string name="articles">Bài báo</string>
-    <string name="favorites">Yêu thích</string>
+    <string name="articles">Tin tức</string>
+    <string name="favorites">Mở rộng</string>
     <string name="offline">offline</string>
     <string name="settings">Cài đặt</string>
     <string name="drawer_open">Mở</string>
@@ -32,4 +32,111 @@
     <string name="avalable_network">Đang có mạng</string>
     <string name="details">Chi tiết</string>
     <string name="check_your_network">Làm ơn kiểm tra mạng !</string>
+
+    <string name="toolbar_name">Tin tức</string>
+    <string name="fab_description">FAB button description</string>
+
+    <string name="text_logo_toobar">Quản lí nhắc nhở</string>
+    <string name="action_refresh">Làm mới</string>
+    <string name="action_menu">Thực đơn</string>
+    <string name="text_notification">Thông báo</string>
+    <string name="text_manager_task">Quản lí nhăc nhở</string>
+    <string name="title_toolbar_description">Lịch trình</string>
+    <string name="textView_add_new_task">Thêm công việc</string>
+    <string name="editText_add_new_task">Chủ đề</string>
+    <string name="textView_btn_date_time_start">Ngày bắt đầu</string>
+    <string name="textView_btn_date_start">dd/mm/yyyy</string>
+    <string name="textView_btn_time_start">hh:mm</string>
+    <string name="textView_btn_date_time_end">Ngày kết thúc</string>
+    <string name="textView_btn_date_end">dd/mm/yyyy</string>
+    <string name="textView_btn_time_end">hh:mm</string>
+    <string name="textView_spinner">Mức độ</string>
+    <string name="editText_description_task">Mô tả</string>
+    <string name="action_choose_item_menu_rss">Khoa Tin</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_nav_inCountry_news">Vn press</string>
+    <string name="title_nav_national_news">CNN tin tức</string>
+    <string name="action_extensive">Mở rộng</string>
+    <string name="nave_home">Trang chủ</string>
+    <string name="nav_list_tasks_today">Công việc hôm nay</string>
+    <string name="nav_sort_task">Sắp xếp</string>
+    <string name="nav_add_new_task_lunar_calendar">Đặt theo lịch âm</string>
+    <string name="nav_search_task">Tìm kiếm</string>
+    <string name="title_collapsing_list_task_fragment">Lịch trình</string>
+    <string name="schedule">Lịch trình</string>
+
+    <string name="basic_action_1">Action_1</string>
+    <string name="basic_action_2">Action_2</string>
+    <string name="basic_del">Xóa</string>
+    <string name="str_orange">#fe7b27</string>
+    <string name="str_green">#3cac69</string>
+    <string name="str_red">#FF4444</string>
+    <string name="str_yellow">#FFBB33</string>
+    <string name="str_sky_blue">#33B5E5</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="action_back_to_before_frg">Quay lại</string>
+    <string name="action_share_info">Chia sẽ</string>
+
+    <string name="notify_new_task_message">Thông báo mới</string>
+    <string name="toolbar_schedule">Lịch trình</string>
+    <string name="empty_fields">Điền đầy đủ trường </string>
+    <string name="action_show_task_today">Công việc hôm nay</string>
+    <string name="action_show_complete_task">Công việc hoàn thành</string>
+    <string name="action_incomplete_task">Công việc chưa hoàn thành</string>
+    <string name="action_important_task">Công việc quan trọng</string>
+    <string name="action_show_default_tasks">Mặc định</string>
+    // pop_up show sort tasks
+    <string name="action_show_sort_deadline_day_task">Sắp xếp theo ngày kết thúc</string>
+    <string name="action_show_sort_start_day_tasks">Sắp xếp theo ngày bắt đầu</string>
+    <string name="action_show_sort_pioriry_tasks">Sắp xếp theo mức độ quan trọng</string>
+    //
+
+    <string name="open">Mở</string>
+
+    <string name="title_nav_register_receive_news">Đăng kí</string>
+    <string name="title_nav_settings">Cài đặt</string>
+    <string name="title_nav_add_on">Mở rộng</string>
+    <string name="title_nav_about_app">About</string>
+    <string name="mark_done_task">Đánh dấu xong nhiệm vụ</string>
+    <string name="cancle_mark_done_task">Hủy đánh dấu xong nhiệm vụ</string>
+    <string name="turn_on_alarm">Bật nhắc nhở</string>
+    <string name="turn_off_alarm">Hủy nhắc nhở</string>
+    <!-- details activity-!>
+
+
+    <!-Navigation Drawer Menu Item-->
+    <string name="action_sport_news">Thể thao</string>
+    <string name="action_home">Trang chủ</string>
+    <string name="action_health_news">Sức khỏe</string>
+    <string name="action_entertaiment">Giai Trí</string>
+    <string name="action_world_news">Tin thế giới</string>
+    <string name="action_thoi_su">Thời sự</string>
+    <string name="textViewSubject">Chủ để</string>
+    <string name="textViewDateStartTask">Ngày bắt đầu</string>
+    <string name="textViewTimeStartTask">Giờ bắt đầu</string>
+    <string name="textViewDateEndTask">Ngày kết thúc</string>
+    <string name="textViewTimeEndTask">Giờ kết thúc</string>
+    <string name="textViewDetails">Chi tiết</string>
+    <string name="btn_ok">Ok</string>
+
+    <!--Navigation Drawer Menu Item-->
+    <string-array name="nav_drawer_items">
+        <item> Trang chủ </item>
+        <item>Công việc hôm nay</item>
+        <item>Tìm kiếm </item>
+        <item>Đặt theo lịch âm</item>
+        <item>Sắp xếp </item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home_black_18dp</item>
+        <item>@drawable/ic_schedule_black_18dp</item>
+        <item>@drawable/ic_search_black_18dp</item>
+        <item>@drawable/ic_note_add_black_18dp</item>
+        <item>@drawable/ic_sort_black_18dp</item>
+    </array>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_sort_deadline_day_tasks"
+        android:title="@string/action_show_sort_deadline_day_task"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_sort_start_day_tasks"
+        android:title="@string/action_show_sort_start_day_tasks"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_sort_piority_tasks"
+        android:title="@string/action_show_sort_pioriry_tasks"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_default"
+        android:title="@string/action_show_default_tasks"
+        app:showAsAction="always|withText" />
+
+</menu>

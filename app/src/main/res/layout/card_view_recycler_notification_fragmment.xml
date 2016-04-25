@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:weightSum ="6"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:id="@+id/imageView_title_icon"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:src="@drawable/ic_label_black_18dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp" />
+                <TextView
+                    android:layout_weight="4.5"
+                    android:id="@+id/textView_subject_rss"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_alignParentTop="true"
+                    android:textSize="15sp" />
+            <ImageView
+                android:layout_weight="0.5"
+                android:layout_marginTop="8dp"
+                android:id="@+id/imageView_mark_rss_item_important"
+                android:src="@drawable/ic_star_black_18dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_weight="0.5"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/imageView_mark_readed_rss"
+                android:layout_width="0dp"
+                android:src="@drawable/ic_done_black_18dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

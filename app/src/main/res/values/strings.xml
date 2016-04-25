@@ -1,22 +1,125 @@
 <resources>
-    <string name="app_name">Tvo</string>
 
+    <string name="toolbar_name">News</string>
+    <string name="fab_description">FAB button description</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="text_logo_toobar">Task manager</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_menu">Menu</string>
+    <string name="text_notification">Notification</string>
+    <string name="text_manager_task">Task Manager</string>
+    <string name="title_toolbar_description">Schedule</string>
+    <string name="textView_add_new_task">Add New Task</string>
+    <string name="editText_add_new_task">Subject</string>
+    <string name="textView_btn_date_time_start">Start</string>
+    <string name="textView_btn_date_start">dd/mm/yyyy</string>
+    <string name="textView_btn_time_start">hh:mm</string>
+    <string name="textView_btn_date_time_end">End</string>
+    <string name="textView_btn_date_end">dd/mm/yyyy</string>
+    <string name="textView_btn_time_end">hh:mm</string>
+    <string name="textView_spinner">Piority</string>
+    <string name="editText_description_task">description</string>
+    <string name="action_choose_item_menu_rss">Khoa Tin</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="title_nav_inCountry_news">VnExpress News</string>
+    <string name="title_nav_national_news">CNN news</string>
+    <string name="action_extensive">Add - On</string>
+    <string name="nave_home">Home</string>
+    <string name="nav_list_tasks_today">Tasks Today</string>
+    <string name="nav_sort_task">Sort Task</string>
+    <string name="nav_add_new_task_lunar_calendar">Add Task Lunar Calendar</string>
+    <string name="nav_search_task">Search</string>
+    <string name="title_collapsing_list_task_fragment">Schedule</string>
+    <string name="schedule">Schedule</string>
+    <string name="error">Error</string>
+    <string name="basic_action_1">Action_1</string>
+    <string name="basic_action_2">Action_2</string>
+    <string name="basic_del">Delete</string>
+    <string name="str_orange">#fe7b27</string>
+    <string name="str_green">#3cac69</string>
+    <string name="str_red">#FF4444</string>
+    <string name="str_yellow">#FFBB33</string>
+    <string name="str_sky_blue">#33B5E5</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="action_back_to_before_frg">Back</string>
+    <string name="action_share_info">Share</string>
+    //pop_up show task today menu
+    <string name="action_show_task_today">Tasks today</string>
+    <string name="action_show_complete_task">Complete Task</string>
+    <string name="action_incomplete_task">Incomplete Task</string>
+    <string name="action_important_task">Important Task</string>
+    <string name="action_show_default_tasks">Default</string>
+    // pop_up show sort tasks
+    <string name="action_show_sort_deadline_day_task">Sort deadline day</string>
+    <string name="action_show_sort_start_day_tasks">sort start day</string>
+    <string name="action_show_sort_pioriry_tasks">sort piority</string>
+    //
+    <string name="notify_new_task_message">New Notification</string>
+    <string name="toolbar_schedule">Schedule</string>
+    <string name="empty_fields">Fill ip fields</string>
+    <string name="open">Open</string>
+    <string name="question">Question</string>
+    <string name="message">Message</string>
+    <string name="yes">yes</string>
+    <string name="messageCon">You want to delete this Task?</string>
+    <string name="no">No</string>
+    <string name="title_nav_register_receive_news">Registration</string>
+    <string name="title_nav_settings">Setting</string>
+    <string name="title_nav_add_on">Add_on</string>
+    <string name="title_nav_about_app">About</string>
+    <string name="mark_done_task">mark done task</string>
+    <string name="cancle_mark_done_task">Cancel mark done task</string>
+    <string name="turn_on_alarm">Turn on alarm</string>
+    <string name="turn_off_alarm">Turn off alarm</string>
+    <!-- details activity-!>
+
+
+    <!-Navigation Drawer Menu Item-->
+    <string name="action_sport_news">Sport</string>
+    <string name="action_home">Home</string>
+    <string name="action_health_news">Health</string>
+    <string name="action_entertaiment">Entertainment</string>
+    <string name="action_world_news">World news</string>
+    <string name="action_thoi_su">Thoi su</string>
+    <string name="textViewSubject">Subject</string>
+    <string name="textViewDateStartTask">Date Start</string>
+    <string name="textViewTimeStartTask">Time Start</string>
+    <string name="textViewDateEndTask">Date End</string>
+    <string name="textViewTimeEndTask">Time end</string>
+    <string name="textViewDetails">Details</string>
+    <string name="btn_ok">Ok</string>
+
+    <string-array name="nav_drawer_items">
+        <item> Home </item>
+        <item>Today Tasks</item>
+        <item>Find Task</item>
+        <item>Add Task On Lunar Calendar</item>
+        <item>Sort Deadline Day</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home_black_18dp</item>
+        <item>@drawable/ic_schedule_black_18dp</item>
+        <item>@drawable/ic_search_black_18dp</item>
+        <item>@drawable/ic_note_add_black_18dp</item>
+        <item>@drawable/ic_sort_black_18dp</item>
+    </array>
+
     <string name="name_app">Home</string>
     <string name="textView_main_activity">Articles</string>
-    <string name="message">No connection , please check your network</string>
+
     <string name="loading_video">loading...</string>
     <string name="articles">Articles</string>
     <string name="favorites">favorites</string>
     <string name="offline">offline</string>
     <string name="settings">settings</string>
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
-    <string name="yes">Yes</string>
-    <string name="question">question</string>
-    <string name="messageCon">Are you sure delete this items?</string>
-    <string name="no">No</string>
+
     <string name="list_news_offline">News</string>
     <string name="exit">Press one again to exit</string>
     <string name="respond_server">Server is being stoped... Please , come back then</string>
@@ -24,7 +127,7 @@
     <string name="respond_server_empty">webpage is being died</string>
     <string name="respond_when_download_complete">Complete</string>
     <string name="loading">loading...</string>
-    <string name="error">Error</string>
+
     <string name="network_unvalable">Sorry there was an error getting data from the Internet. Network Unavailable!</string>
     <string name="retry">Retry</string>
     <string name="cancel">cancel</string>
@@ -32,4 +135,6 @@
     <string name="avalable_network">Avalable network</string>
     <string name="details">Details</string>
     <string name="check_your_network">Please check your network!</string>
+    <string name="daoTao">Đào Tạo</string>
+    <string name="khoatin">Khoa Tin</string>
 </resources>
